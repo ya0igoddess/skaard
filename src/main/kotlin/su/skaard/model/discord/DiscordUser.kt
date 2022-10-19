@@ -12,7 +12,7 @@ class DiscordUser(
     @Column(name = "name")
     var name: String,
 
-    @OneToMany(mappedBy = "discord_user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "discordUser", fetch = FetchType.LAZY)
     var membership: List<GuildMember> = listOf()
 ) {
 
