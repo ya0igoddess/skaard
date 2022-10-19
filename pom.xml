@@ -16,6 +16,7 @@
     <properties>
         <java.version>11</java.version>
         <kotlin.version>1.7.10</kotlin.version>
+        <kord.version>0.8.0-M15</kord.version>
     </properties>
     <dependencies>
         <dependency>
@@ -54,6 +55,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.kord</groupId>
+            <artifactId>kord-core</artifactId>
+            <version>${kord.version}</version>
         </dependency>
     </dependencies>
 
