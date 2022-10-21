@@ -17,7 +17,6 @@ import javax.annotation.PreDestroy
 class KordSingleton @Autowired constructor(connectionPool: KordVoiceConnectionPool) {
 
     lateinit var kord: Kord
-    lateinit var korLoginJob: Job
     val connectionPool: KordVoiceConnectionPool
     init {
         this.connectionPool = connectionPool
@@ -30,14 +29,14 @@ class KordSingleton @Autowired constructor(connectionPool: KordVoiceConnectionPo
 
     @PreDestroy
     fun preDestroy() {
-        korLoginJob.cancel()
+        runBlocking { kord.logout() }
     }
 
     private suspend fun initKord() {
         val token = ""
         kord = Kord(token)
         kord.on<VoiceStateUpdateEvent> { connectionPool.handleVoiceChange(this) }
-        korLoginJob = CoroutineScope(kord.coroutineContext).launch {
+        CoroutineScope(kord.coroutineContext).launch {
             kord.login {
                 @OptIn(PrivilegedIntent::class)
                 intents += Intent.MessageContent
