@@ -10,9 +10,9 @@ class Guild(
     val id: ULong,
 
     @OneToMany(mappedBy = "guild", fetch = FetchType.LAZY)
-    var members: List<GuildMember> = listOf(),
+    var members: List<GuildMember> = mutableListOf(),
 
     @OneToMany(mappedBy = "guild", fetch = FetchType.LAZY)
-    var channels: List<Channel> = listOf()
+    var channels: List<Channel> = mutableListOf()
 ) {
 }
