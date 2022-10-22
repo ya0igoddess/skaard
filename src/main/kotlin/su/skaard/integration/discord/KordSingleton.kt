@@ -1,8 +1,6 @@
 package su.skaard.integration.discord
 
 import dev.kord.core.Kord
-import dev.kord.core.event.channel.VoiceChannelUpdateEvent
-import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.core.event.user.VoiceStateUpdateEvent
 import dev.kord.core.on
 import dev.kord.gateway.Intent
@@ -10,16 +8,22 @@ import dev.kord.gateway.PrivilegedIntent
 import kotlinx.coroutines.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import su.skaard.utils.SettingsStore
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
 @Component
-class KordSingleton @Autowired constructor(connectionPool: KordVoiceConnectionPool) {
+class KordSingleton @Autowired constructor(
+    settingsStore: SettingsStore,
+    connectionPool: KordVoiceConnectionPool
+) {
 
     lateinit var kord: Kord
-    val connectionPool: KordVoiceConnectionPool
+    private final val connectionPool: KordVoiceConnectionPool
+    private final val settingsStore: SettingsStore
     init {
         this.connectionPool = connectionPool
+        this.settingsStore = settingsStore
     }
 
     @PostConstruct
@@ -33,7 +37,7 @@ class KordSingleton @Autowired constructor(connectionPool: KordVoiceConnectionPo
     }
 
     private suspend fun initKord() {
-        val token = ""
+        val token = System.getenv("SKAARD_TOKEN")
         kord = Kord(token)
         kord.on<VoiceStateUpdateEvent> { connectionPool.handleVoiceChange(this) }
         CoroutineScope(kord.coroutineContext).launch {
