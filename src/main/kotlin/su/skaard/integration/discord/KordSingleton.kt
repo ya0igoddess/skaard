@@ -13,13 +13,15 @@ import javax.annotation.PreDestroy
 
 @Component
 class KordSingleton @Autowired constructor(
-    connectionPool: KordVoiceConnectionPool
+    connectionPool: KordVoiceConnectionPool,
+    synchronisingBean: SynchronisingBean
 ) {
-
     lateinit var kord: Kord
     private final val connectionPool: KordVoiceConnectionPool
+    private final val synchronisingBean: SynchronisingBean
     init {
         this.connectionPool = connectionPool
+        this.synchronisingBean = synchronisingBean
     }
 
     @PostConstruct
@@ -32,9 +34,12 @@ class KordSingleton @Autowired constructor(
         runBlocking { kord.logout() }
     }
 
+    suspend fun synchronizeData() = synchronisingBean.synchronizeData(kord)
+
     private suspend fun initKord() {
         val token = System.getenv("SKAARD_TOKEN")
         kord = Kord(token)
+        synchronizeData()
         kord.on<VoiceStateUpdateEvent> { connectionPool.handleVoiceChange(this) }
         CoroutineScope(kord.coroutineContext).launch {
             kord.login {
