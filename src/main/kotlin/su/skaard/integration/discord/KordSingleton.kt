@@ -8,22 +8,18 @@ import dev.kord.gateway.PrivilegedIntent
 import kotlinx.coroutines.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import su.skaard.utils.SettingsStore
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
 @Component
 class KordSingleton @Autowired constructor(
-    settingsStore: SettingsStore,
     connectionPool: KordVoiceConnectionPool
 ) {
 
     lateinit var kord: Kord
     private final val connectionPool: KordVoiceConnectionPool
-    private final val settingsStore: SettingsStore
     init {
         this.connectionPool = connectionPool
-        this.settingsStore = settingsStore
     }
 
     @PostConstruct
