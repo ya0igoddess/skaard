@@ -2,6 +2,7 @@ package su.skaard.integration.discord
 
 import dev.kord.core.Kord
 import dev.kord.core.event.channel.VoiceChannelCreateEvent
+import dev.kord.core.event.guild.MemberJoinEvent
 import dev.kord.core.event.user.VoiceStateUpdateEvent
 import dev.kord.core.on
 import dev.kord.gateway.Intent
@@ -43,10 +44,13 @@ class KordSingleton @Autowired constructor(
         synchronizeData()
         kord.on<VoiceStateUpdateEvent> { connectionPool.handleVoiceChange(this) }
         kord.on<VoiceChannelCreateEvent> { synchronisingBean.handleVoiceChannelCreateEvent(this) }
+        kord.on<MemberJoinEvent> { synchronisingBean.handleMemberJoinEvent(this) }
         CoroutineScope(kord.coroutineContext).launch {
             kord.login {
                 @OptIn(PrivilegedIntent::class)
                 intents += Intent.MessageContent
+                @OptIn(PrivilegedIntent::class)
+                intents += Intent.GuildMembers
             }
         }
     }

@@ -6,6 +6,7 @@ import dev.kord.core.entity.Member
 import dev.kord.core.entity.User
 import dev.kord.core.entity.channel.GuildChannel
 import dev.kord.core.event.channel.VoiceChannelCreateEvent
+import dev.kord.core.event.guild.MemberJoinEvent
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -50,6 +51,19 @@ class SynchronisingBean @Autowired constructor (
             .orElseThrow()
         val channel = Channel(discordChannel.id.value, guild)
         channelRepository.save(channel)
+    }
+
+    suspend fun handleMemberJoinEvent(memberJoinEvent: MemberJoinEvent) {
+        println(memberJoinEvent)
+        val discordUser = memberJoinEvent.member.asUser()
+        val user = syncUser(discordUser)!!
+        val guild = guildsRepository.findById(memberJoinEvent.guild.id.value.toLong()).orElseThrow()
+        val member = GuildMember(
+            id = user.id,
+            discordUser = user,
+            guild = guild
+        )
+        guildMemberRepository.save(member)
     }
 
     suspend fun syncGuild(discordGuild: Guild) {
