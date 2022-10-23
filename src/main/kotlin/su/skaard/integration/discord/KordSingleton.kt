@@ -1,6 +1,7 @@
 package su.skaard.integration.discord
 
 import dev.kord.core.Kord
+import dev.kord.core.event.channel.VoiceChannelCreateEvent
 import dev.kord.core.event.user.VoiceStateUpdateEvent
 import dev.kord.core.on
 import dev.kord.gateway.Intent
@@ -41,6 +42,7 @@ class KordSingleton @Autowired constructor(
         kord = Kord(token)
         synchronizeData()
         kord.on<VoiceStateUpdateEvent> { connectionPool.handleVoiceChange(this) }
+        kord.on<VoiceChannelCreateEvent> { synchronisingBean.handleVoiceChannelCreateEvent(this) }
         CoroutineScope(kord.coroutineContext).launch {
             kord.login {
                 @OptIn(PrivilegedIntent::class)
