@@ -51,6 +51,7 @@ class KordSingleton @Autowired constructor(
                 intents += Intent.MessageContent
                 @OptIn(PrivilegedIntent::class)
                 intents += Intent.GuildMembers
+                intents += Intent.GuildVoiceStates
             }
         }
     }
