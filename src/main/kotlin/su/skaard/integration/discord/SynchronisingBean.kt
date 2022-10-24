@@ -19,7 +19,7 @@ import su.skaard.repositories.discord.GuildMemberRepository
 import su.skaard.repositories.discord.GuildsRepository
 
 /**
- * Synchronizes Discord Api data with local DB.
+ * Synchronizes Discord Api guild, channel and member data with local DB.
  */
 @Component
 class SynchronisingBean @Autowired constructor (
@@ -79,7 +79,7 @@ class SynchronisingBean @Autowired constructor (
     suspend fun syncChannel(discordChannel: GuildChannel, guild: su.skaard.model.discord.Guild) {
         val channelOpt = channelRepository.findById(discordChannel.id.value.toLong())
         val channel = channelOpt.orElse(Channel(
-            id = discordChannel.guild.id.value,
+            id = discordChannel.id.value,
             guild = guild
         ))
         channelRepository.save(channel)
