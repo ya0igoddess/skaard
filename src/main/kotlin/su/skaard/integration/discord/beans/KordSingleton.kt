@@ -15,16 +15,10 @@ import javax.annotation.PreDestroy
 
 @Component
 class KordSingleton @Autowired constructor(
-    connectionPool: KordVoiceConnectionPool,
-    synchronisingBean: SynchronisingBean
+    val connectionPool: KordVoiceConnectionPool,
+    val synchronisingBean: SynchronisingBean
 ) {
     lateinit var kord: Kord
-    private final val connectionPool: KordVoiceConnectionPool
-    private final val synchronisingBean: SynchronisingBean
-    init {
-        this.connectionPool = connectionPool
-        this.synchronisingBean = synchronisingBean
-    }
 
     @PostConstruct
     fun postInit() {
