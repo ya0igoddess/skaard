@@ -24,10 +24,10 @@ class VoiceChannelConnectionPeriod(
     @ManyToOne
     val member: GuildMember,
 
-    @Column(name = "connection_start")
+    @Column(name = "begin_time")
     val connectionStart: LocalDateTime,
 
-    @Column(name = "connection_end")
+    @Column(name = "end_time")
     val connectionEnd: LocalDateTime
 ) {
 }
