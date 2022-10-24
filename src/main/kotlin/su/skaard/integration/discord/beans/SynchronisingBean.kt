@@ -23,21 +23,11 @@ import su.skaard.repositories.discord.GuildsRepository
  */
 @Component
 class SynchronisingBean @Autowired constructor (
-    channelRepository: ChannelRepository,
-    discordUserRepository: DiscordUserRepository,
-    guildMemberRepository: GuildMemberRepository,
-    guildsRepository: GuildsRepository
+    private val channelRepository: ChannelRepository,
+    private val discordUserRepository: DiscordUserRepository,
+    private val guildMemberRepository: GuildMemberRepository,
+    private val guildsRepository: GuildsRepository
 ) {
-    private final val channelRepository: ChannelRepository
-    private final val discordUserRepository: DiscordUserRepository
-    private final val guildMemberRepository: GuildMemberRepository
-    private final val guildsRepository: GuildsRepository
-    init {
-        this.channelRepository = channelRepository
-        this.discordUserRepository = discordUserRepository
-        this.guildMemberRepository = guildMemberRepository
-        this.guildsRepository = guildsRepository
-    }
 
 
     suspend fun synchronizeData(kord: Kord) {
