@@ -1,4 +1,4 @@
-package su.skaard.integration.discord
+package su.skaard.integration.discord.beans
 
 import dev.kord.core.Kord
 import dev.kord.core.entity.Guild

@@ -1,4 +1,4 @@
-package su.skaard.integration.discord
+package su.skaard.integration.discord.model
 
 import dev.kord.common.entity.Snowflake
 import java.time.LocalDateTime

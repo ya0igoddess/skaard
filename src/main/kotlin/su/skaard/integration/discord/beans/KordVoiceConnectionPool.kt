@@ -1,9 +1,11 @@
-package su.skaard.integration.discord
+package su.skaard.integration.discord.beans
 
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.event.user.VoiceStateUpdateEvent
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import su.skaard.integration.discord.model.ClosedVoiceConnection
+import su.skaard.integration.discord.model.OpenedVoiceConnection
 import su.skaard.model.discord.VoiceChannelConnectionPeriod
 import su.skaard.repositories.discord.*
 
