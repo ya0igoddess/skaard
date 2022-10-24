@@ -10,6 +10,7 @@ import dev.kord.gateway.PrivilegedIntent
 import kotlinx.coroutines.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import su.skaard.utils.getLogger
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
@@ -18,6 +19,7 @@ class KordSingleton @Autowired constructor(
     val connectionPool: KordVoiceConnectionPool,
     val synchronisingBean: SynchronisingBean
 ) {
+    private final val logger = getLogger(KordSingleton::class.java)
     lateinit var kord: Kord
 
     @PostConstruct

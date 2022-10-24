@@ -8,6 +8,7 @@ import su.skaard.integration.discord.model.ClosedVoiceConnection
 import su.skaard.integration.discord.model.OpenedVoiceConnection
 import su.skaard.model.discord.VoiceChannelConnectionPeriod
 import su.skaard.repositories.discord.*
+import su.skaard.utils.getLogger
 
 @Component
 class KordVoiceConnectionPool @Autowired constructor(
@@ -16,6 +17,7 @@ class KordVoiceConnectionPool @Autowired constructor(
     val channelRepository: ChannelRepository,
     val voiceChannelConnectionPeriodRepository: VoiceChannelConnectionPeriodRepository
 )  {
+    private val logger = getLogger(KordVoiceConnectionPool::class.java)
     private val connections: MutableMap<String, OpenedVoiceConnection> = mutableMapOf()
 
     //TODO rewrite in concurrent style
@@ -31,6 +33,7 @@ class KordVoiceConnectionPool @Autowired constructor(
     private fun isChannelSwitch(stateChange: VoiceStateUpdateEvent) = stateChange.state.channelId != stateChange.old?.channelId
 
     private fun openConnection(connectionId:String, channelId:Snowflake, userId:Snowflake) {
+        logger.debug("Opening the connection $connectionId at channel $channelId")
         if (connections.containsKey(connectionId)) {
             throw IllegalStateException("Attempt to open the already opened connection (connection ID match)")
         }
@@ -38,6 +41,7 @@ class KordVoiceConnectionPool @Autowired constructor(
     }
 
     private fun closeConnection(connectionId: String?) {
+        logger.debug("Closing the connection $connectionId")
         val connection = connections.remove(connectionId)?.close()
         if (connection != null) saveConnection(connection) else return
     }

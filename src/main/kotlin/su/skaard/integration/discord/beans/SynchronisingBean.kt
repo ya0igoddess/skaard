@@ -17,6 +17,7 @@ import su.skaard.repositories.discord.ChannelRepository
 import su.skaard.repositories.discord.DiscordUserRepository
 import su.skaard.repositories.discord.GuildMemberRepository
 import su.skaard.repositories.discord.GuildsRepository
+import su.skaard.utils.getLogger
 
 /**
  * Synchronizes Discord Api guild, channel and member data with local DB.
@@ -28,13 +29,16 @@ class SynchronisingBean @Autowired constructor (
     private val guildMemberRepository: GuildMemberRepository,
     private val guildsRepository: GuildsRepository
 ) {
-
+    private val logger = getLogger(SynchronisingBean::class.java)
 
     suspend fun synchronizeData(kord: Kord) {
+        logger.info("Kord synchronization started")
         kord.guilds.collect { syncGuild(it) }
+        logger.info("Kord synchronization finished")
     }
 
     suspend fun handleVoiceChannelCreateEvent(voiceChannelCreateEvent: VoiceChannelCreateEvent) {
+        logger.debug("Handling channel creation $voiceChannelCreateEvent")
         val discordChannel = voiceChannelCreateEvent.channel
         val discordGuild = discordChannel.guild
         val guild = guildsRepository.findById(discordGuild.id.value.toLong())
@@ -44,7 +48,7 @@ class SynchronisingBean @Autowired constructor (
     }
 
     suspend fun handleMemberJoinEvent(memberJoinEvent: MemberJoinEvent) {
-        println(memberJoinEvent)
+        logger.debug("Handling member joining $memberJoinEvent")
         val discordUser = memberJoinEvent.member.asUser()
         val user = syncUser(discordUser)!!
         val guild = guildsRepository.findById(memberJoinEvent.guild.id.value.toLong()).orElseThrow()
