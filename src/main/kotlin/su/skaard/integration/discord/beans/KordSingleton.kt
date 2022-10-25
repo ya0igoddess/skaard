@@ -16,7 +16,7 @@ import javax.annotation.PreDestroy
 
 @Component
 class KordSingleton @Autowired constructor(
-    val connectionPeriodService: ConnectionPeriodService,
+    val connectionPeriodRegistryService: ConnectionPeriodRegistryService,
     val synchronisingBean: SynchronisingBean
 ) {
     private final val logger = getLogger(KordSingleton::class.java)
@@ -38,7 +38,7 @@ class KordSingleton @Autowired constructor(
         val token = System.getenv("SKAARD_TOKEN")
         kord = Kord(token)
         synchronizeData()
-        kord.on<VoiceStateUpdateEvent> { connectionPeriodService.handleVoiceChange(this) }
+        kord.on<VoiceStateUpdateEvent> { connectionPeriodRegistryService.handleVoiceChange(this) }
         kord.on<VoiceChannelCreateEvent> { synchronisingBean.handleVoiceChannelCreateEvent(this) }
         kord.on<MemberJoinEvent> { synchronisingBean.handleMemberJoinEvent(this) }
         CoroutineScope(kord.coroutineContext).launch {

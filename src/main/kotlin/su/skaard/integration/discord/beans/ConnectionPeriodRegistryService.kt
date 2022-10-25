@@ -11,13 +11,13 @@ import su.skaard.repositories.discord.*
 import su.skaard.utils.getLogger
 
 @Component
-class ConnectionPeriodService @Autowired constructor(
+class ConnectionPeriodRegistryService @Autowired constructor(
     val userRepository: DiscordUserRepository,
     val guildMemberRepository: GuildMemberRepository,
     val channelRepository: ChannelRepository,
     val voiceChannelConnectionPeriodRepository: VoiceChannelConnectionPeriodRepository
 )  {
-    private val logger = getLogger(ConnectionPeriodService::class.java)
+    private val logger = getLogger(ConnectionPeriodRegistryService::class.java)
     private val connections: MutableMap<String, OpenedVoiceConnection> = mutableMapOf()
 
     //TODO rewrite in concurrent style
