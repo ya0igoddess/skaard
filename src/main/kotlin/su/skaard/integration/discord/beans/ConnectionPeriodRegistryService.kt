@@ -8,6 +8,7 @@ import su.skaard.integration.discord.model.ClosedVoiceConnection
 import su.skaard.integration.discord.model.OpenedVoiceConnection
 import su.skaard.model.discord.VoiceChannelConnectionPeriod
 import su.skaard.repositories.discord.*
+import su.skaard.utils.IntegrationPersistenceException
 import su.skaard.utils.getLogger
 
 @Component
@@ -47,10 +48,13 @@ class ConnectionPeriodRegistryService @Autowired constructor(
     }
 
     private fun saveConnection(connection: ClosedVoiceConnection) = connection.let {
-        val user = userRepository.findById(it.userId.value.toLong()).orElseThrow()
-        val channel = channelRepository.findById(it.channelId.value.toLong()).orElseThrow()
+        val user = userRepository.findById(it.userId.value.toLong())
+            .orElseThrow { IntegrationPersistenceException() }
+        val channel = channelRepository.findById(it.channelId.value.toLong())
+            .orElseThrow { IntegrationPersistenceException() }
         val guild = channel.guild
-        val member = guildMemberRepository.findByGuildAndDiscordUser(guild, user).orElseThrow()
+        val member = guildMemberRepository.findByGuildAndDiscordUser(guild, user)
+            .orElseThrow { IntegrationPersistenceException() }
         voiceChannelConnectionPeriodRepository.save(VoiceChannelConnectionPeriod(
             id = 0UL,
             channel = channel,

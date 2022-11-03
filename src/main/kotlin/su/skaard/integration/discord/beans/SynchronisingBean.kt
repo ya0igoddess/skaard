@@ -17,6 +17,7 @@ import su.skaard.repositories.discord.ChannelRepository
 import su.skaard.repositories.discord.DiscordUserRepository
 import su.skaard.repositories.discord.GuildMemberRepository
 import su.skaard.repositories.discord.GuildsRepository
+import su.skaard.utils.IntegrationPersistenceException
 import su.skaard.utils.getLogger
 
 /**
@@ -42,7 +43,7 @@ class SynchronisingBean @Autowired constructor (
         val discordChannel = voiceChannelCreateEvent.channel
         val discordGuild = discordChannel.guild
         val guild = guildsRepository.findById(discordGuild.id.value.toLong())
-            .orElseThrow()
+            .orElseThrow { IntegrationPersistenceException() }
         val channel = Channel(discordChannel.id.value, guild)
         channelRepository.save(channel)
     }
@@ -51,7 +52,8 @@ class SynchronisingBean @Autowired constructor (
         logger.debug("Handling member joining $memberJoinEvent")
         val discordUser = memberJoinEvent.member.asUser()
         val user = syncUser(discordUser)!!
-        val guild = guildsRepository.findById(memberJoinEvent.guild.id.value.toLong()).orElseThrow()
+        val guild = guildsRepository.findById(memberJoinEvent.guild.id.value.toLong())
+            .orElseThrow { IntegrationPersistenceException() }
         val member = GuildMember(
             id = user.id,
             discordUser = user,
