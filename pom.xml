@@ -17,6 +17,7 @@
         <java.version>11</java.version>
         <kotlin.version>1.7.10</kotlin.version>
         <kord.version>0.8.0-M15</kord.version>
+        <kotlinx.html.version>0.8.0</kotlinx.html.version>
     </properties>
     <dependencies>
         <dependency>
@@ -60,6 +61,11 @@
             <groupId>dev.kord</groupId>
             <artifactId>kord-core</artifactId>
             <version>${kord.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>kotlinx-html-jvm</artifactId>
+            <version>${kotlinx.html.version}</version>
         </dependency>
     </dependencies>
 

@@ -1,0 +1,41 @@
+#root {
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+.daily-stat {
+    display: grid;
+    row-gap: 5px;
+}
+
+.activity-line {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.activity {
+    height: 100%;
+}
+
+.activity-active {
+    background-color: #a5c5ff;
+}
+
+.activity-row {
+    display: grid;
+    column-gap: 20px;
+    grid-template-columns: 2fr 8fr;
+}
+
+.activity-inactive {
+    background-color: #eeeada;
+    opacity: 70%;
+}
+
+.stat-header-time {
+    display: grid;
+    grid-template-columns: repeat(24,1fr);
+    font-size: 11px;
+}
