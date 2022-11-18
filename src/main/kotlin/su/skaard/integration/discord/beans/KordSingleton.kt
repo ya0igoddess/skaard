@@ -31,17 +31,14 @@ class KordSingleton @Autowired constructor(
     fun preDestroy() {
         runBlocking { kord.logout() }
     }
-
-    suspend fun synchronizeData() = synchronisingBean.synchronizeData(kord)
-    suspend fun registerCommands() = kordCommandRegistry.registerCommands(kord)
-
     private suspend fun initKord() {
         val token = System.getenv("SKAARD_TOKEN")
         kord = Kord(token)
-        synchronizeData()
-        registerCommands()
 
+        synchronisingBean.synchronizeData(kord)
+        kordCommandRegistry.registerCommands(kord)
         kord.on<Event> { eventHandlers.forEach { it.handle(this) } }
+
         CoroutineScope(kord.coroutineContext).launch {
             kord.login {
                 @OptIn(PrivilegedIntent::class)
