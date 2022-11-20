@@ -3,12 +3,14 @@ package su.skaard.integration.discord.model.command
 import dev.kord.core.behavior.interaction.response.respond
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import dev.kord.rest.builder.interaction.GlobalChatInputCreateBuilder
+import org.springframework.stereotype.Component
 import kotlin.random.Random
 
-@Command
+@Component(CallOutMyNameCommand.commandName)
 class CallOutMyNameCommand : DiscordCommand {
+    companion object { const val commandName = "call_out_my_name" }
     override val name: String
-        get() = "call_out_my_name"
+        get() = commandName
     override val description: String
         get() = "Calls out her name"
     override val builder: GlobalChatInputCreateBuilder.() -> Unit
