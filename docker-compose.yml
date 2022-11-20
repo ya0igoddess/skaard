@@ -1,0 +1,20 @@
+version: '3'
+services:
+  app:
+    image: 'skaard:latest'
+    build:
+      context: .
+    container_name: app
+    environment:
+      - SKAARD_TOKEN=${SKAARD_TOKEN}
+    depends_on:
+      - db
+    ports:
+      - '8080:8080'
+  db:
+      image: 'postgres:14.6'
+      container_name: skaard-db
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=12345678
+        - POSTGRES_DB=skaard
