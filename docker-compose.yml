@@ -7,6 +7,7 @@ services:
     container_name: app
     environment:
       - SKAARD_TOKEN=${SKAARD_TOKEN}
+      - spring.datasource.url=jdbc:postgresql://skaard-db:5432/skaard
     depends_on:
       - db
     ports:
