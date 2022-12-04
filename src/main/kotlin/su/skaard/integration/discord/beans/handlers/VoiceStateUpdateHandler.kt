@@ -10,9 +10,14 @@ import su.skaard.integration.discord.beans.ConnectionPeriodRegistryService
 class VoiceStateUpdateHandler @Autowired constructor(
     private val connectionPeriodRegistryService: ConnectionPeriodRegistryService
 ) : DiscordEventHandler {
+
     override suspend fun handle(event: Event) {
         if (event !is VoiceStateUpdateEvent) return
-        connectionPeriodRegistryService.handleVoiceChange(event)
+        if (!isChannelSwitch(event)) return //interested in channel switch only
+        event.old?.let { connectionPeriodRegistryService.closeConnection(it.sessionId) }
+        if (event.state.channelId != null) event.state.let {
+            connectionPeriodRegistryService.openConnection(it.sessionId, it.channelId!!, it.userId)
+        }
     }
-
+    private fun isChannelSwitch(stateChange: VoiceStateUpdateEvent) = stateChange.state.channelId != stateChange.old?.channelId
 }
