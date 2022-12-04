@@ -9,5 +9,6 @@ import java.util.Optional
 @Repository
 interface GuildsRepository : JpaRepository<Guild, Long> {
     override fun findById(ID: Long): Optional<Guild>
+    fun find(id: Long): Guild? = findById(id).orElse(null)
     override fun <S : Guild> save(entity: S): S
 }
