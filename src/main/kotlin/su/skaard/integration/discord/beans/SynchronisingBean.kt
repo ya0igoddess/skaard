@@ -42,8 +42,7 @@ class SynchronisingBean @Autowired constructor (
         logger.debug("Handling channel creation $voiceChannelCreateEvent")
         val discordChannel = voiceChannelCreateEvent.channel
         val discordGuild = discordChannel.guild
-        val guild = guildsRepository.findById(discordGuild.id.value.toLong())
-            .orElseThrow { IntegrationPersistenceException() }
+        val guild = guildsRepository.find(discordGuild.id.value.toLong())?: throw IntegrationPersistenceException()
         val channel = Channel(discordChannel.id.value, guild)
         channelRepository.save(channel)
     }
@@ -51,9 +50,8 @@ class SynchronisingBean @Autowired constructor (
     suspend fun handleMemberJoinEvent(memberJoinEvent: MemberJoinEvent) {
         logger.debug("Handling member joining $memberJoinEvent")
         val discordUser = memberJoinEvent.member.asUser()
-        val user = syncUser(discordUser)!!
-        val guild = guildsRepository.findById(memberJoinEvent.guild.id.value.toLong())
-            .orElseThrow { IntegrationPersistenceException() }
+        val user = syncUser(discordUser)
+        val guild = guildsRepository.find(memberJoinEvent.guild.id.value.toLong())?: throw IntegrationPersistenceException()
         val member = GuildMember(
             id = user.id,
             discordUser = user,
@@ -63,41 +61,41 @@ class SynchronisingBean @Autowired constructor (
     }
 
     suspend fun syncGuild(discordGuild: Guild) {
-        val guildOpt = guildsRepository.findById(discordGuild.id.value.toLong())
-        val guild = guildOpt.orElse(su.skaard.model.discord.Guild(
-            id = discordGuild.id.value
-        ))
+        val guild = guildsRepository.find(discordGuild.id.value.toLong())?:
+                    su.skaard.model.discord.Guild(
+                        id = discordGuild.id.value
+                    )
         guildsRepository.save(guild)
         discordGuild.channels.collect { syncChannel(it, guild) }
         discordGuild.members.collect { syncGuildMember(it, guild) }
     }
 
     suspend fun syncChannel(discordChannel: GuildChannel, guild: su.skaard.model.discord.Guild) {
-        val channelOpt = channelRepository.findById(discordChannel.id.value.toLong())
-        val channel = channelOpt.orElse(Channel(
-            id = discordChannel.id.value,
-            guild = guild
-        ))
+        val channel = channelRepository.find(discordChannel.id.value.toLong())?:
+            Channel(
+                id = discordChannel.id.value,
+                guild = guild
+            )
         channelRepository.save(channel)
     }
 
-    suspend fun syncUser(discordUser: User): DiscordUser? {
-        val userOpt = discordUserRepository.findById(discordUser.id.value.toLong())
-        val user = userOpt.orElse(DiscordUser(
-            id = discordUser.id.value,
-            name = discordUser.username
-        ))
+    suspend fun syncUser(discordUser: User): DiscordUser {
+        val user = discordUserRepository.find(discordUser.id.value.toLong())?:
+                DiscordUser(
+                    id = discordUser.id.value,
+                    name = discordUser.username
+                )
         return discordUserRepository.save(user)
     }
 
     suspend fun syncGuildMember(discordMember: Member, guild: su.skaard.model.discord.Guild) {
-        val user = syncUser(discordMember.asUser())!!
-        val memberOpt = guildMemberRepository.findByGuildAndDiscordUser(guild, user)
-        val member = memberOpt.orElse(GuildMember(
-            id = discordMember.id.value,
-            discordUser = user,
-            guild = guild
-        ))
+        val user = syncUser(discordMember.asUser())
+        val member = guildMemberRepository.getByGuildAndDiscordUser(guild, user)?:
+                    GuildMember(
+                        id = discordMember.id.value,
+                        discordUser = user,
+                        guild = guild
+                    )
         guildMemberRepository.save(member)
     }
 

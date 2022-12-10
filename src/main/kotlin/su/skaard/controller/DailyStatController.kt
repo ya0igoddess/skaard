@@ -24,7 +24,7 @@ class DailyStatController @Autowired constructor(
                      @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd")  date: LocalDate?
     ): String {
         val localDate = date ?: LocalDate.now()
-        val channel = channelRepository.findById(channelId.toLong()).get()
+        val channel = channelRepository.find(channelId.toLong()) ?: throw IllegalArgumentException("NonExistingChannel")
         val stat = connectionPeriodService.getChannelConnectionStat(channel, localDate)
         return createCustomHTML(block = createActivityStat(stat, localDate))
     }
