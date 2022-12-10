@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 @Repository
-interface VoiceChannelConnectionPeriodRepository: JpaRepository<VoiceChannelConnectionPeriod, Long> {
+interface VoiceChannelConnectionPeriodRepository : JpaRepository<VoiceChannelConnectionPeriod, Long> {
     override fun findById(id: Long): Optional<VoiceChannelConnectionPeriod>
     fun find(id: Long): VoiceChannelConnectionPeriod? = findById(id).orElse(null)
     fun getAllByChannel(channel: Channel): List<VoiceChannelConnectionPeriod>
@@ -16,6 +16,6 @@ interface VoiceChannelConnectionPeriodRepository: JpaRepository<VoiceChannelConn
         channel: Channel,
         connectionStart: LocalDateTime,
         connectionEnd: LocalDateTime
-    ) : List<VoiceChannelConnectionPeriod>
+    ): List<VoiceChannelConnectionPeriod>
     override fun <S : VoiceChannelConnectionPeriod> save(entity: S): S
 }

@@ -14,5 +14,4 @@ class Guild(
 
     @OneToMany(mappedBy = "guild", fetch = FetchType.LAZY)
     var channels: List<Channel> = mutableListOf()
-) {
-}
+)

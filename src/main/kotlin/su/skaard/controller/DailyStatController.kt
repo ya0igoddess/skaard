@@ -20,8 +20,10 @@ class DailyStatController @Autowired constructor(
     @GetMapping("/daily-stat")
     @ResponseBody
     fun getDailyStat(
-                     @RequestParam channelId: ULong,
-                     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd")  date: LocalDate?
+        @RequestParam channelId: ULong,
+        @RequestParam(required = false)
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        date: LocalDate?
     ): String {
         val localDate = date ?: LocalDate.now()
         val channel = channelRepository.find(channelId.toLong()) ?: throw IllegalArgumentException("NonExistingChannel")

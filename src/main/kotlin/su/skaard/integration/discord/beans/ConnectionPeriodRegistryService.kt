@@ -1,7 +1,6 @@
 package su.skaard.integration.discord.beans
 
 import dev.kord.common.entity.Snowflake
-import dev.kord.core.event.user.VoiceStateUpdateEvent
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import su.skaard.integration.discord.model.ClosedVoiceConnection
@@ -17,12 +16,12 @@ class ConnectionPeriodRegistryService @Autowired constructor(
     val guildMemberRepository: GuildMemberRepository,
     val channelRepository: ChannelRepository,
     val voiceChannelConnectionPeriodRepository: VoiceChannelConnectionPeriodRepository
-)  {
+) {
     private val logger = getLogger(ConnectionPeriodRegistryService::class.java)
     private val connections: MutableMap<String, OpenedVoiceConnection> = mutableMapOf()
     val openedConnections: Map<String, OpenedVoiceConnection> = connections
 
-    fun openConnection(connectionId:String, channelId:Snowflake, userId:Snowflake) {
+    fun openConnection(connectionId: String, channelId: Snowflake, userId: Snowflake) {
         logger.debug("Opening the connection $connectionId at channel $channelId")
         if (connections.containsKey(connectionId)) {
             throw IllegalStateException("Attempt to open the already opened connection (connection ID match)")
@@ -41,12 +40,14 @@ class ConnectionPeriodRegistryService @Autowired constructor(
         val channel = channelRepository.find(it.channelId.value.toLong()) ?: throw IntegrationPersistenceException()
         val guild = channel.guild
         val member = guildMemberRepository.getByGuildAndDiscordUser(guild, user) ?: throw IntegrationPersistenceException()
-        voiceChannelConnectionPeriodRepository.save(VoiceChannelConnectionPeriod(
-            id = 0UL,
-            channel = channel,
-            member = member,
-            connectionStart = it.beginTime,
-            connectionEnd = it.endTime
-        ))
+        voiceChannelConnectionPeriodRepository.save(
+            VoiceChannelConnectionPeriod(
+                id = 0UL,
+                channel = channel,
+                member = member,
+                connectionStart = it.beginTime,
+                connectionEnd = it.endTime
+            )
+        )
     }
 }

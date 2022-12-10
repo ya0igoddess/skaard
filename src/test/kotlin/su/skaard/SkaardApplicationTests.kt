@@ -1,6 +1,5 @@
 package su.skaard
 
-
 /*@SpringBootTest
 class SkaardApplicationTests {
 

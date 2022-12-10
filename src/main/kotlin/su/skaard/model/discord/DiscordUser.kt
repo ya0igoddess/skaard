@@ -14,6 +14,4 @@ class DiscordUser(
 
     @OneToMany(mappedBy = "discordUser", fetch = FetchType.LAZY)
     var membership: List<GuildMember> = listOf()
-) {
-
-}
+)

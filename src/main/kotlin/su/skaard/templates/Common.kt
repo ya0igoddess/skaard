@@ -3,11 +3,10 @@ package su.skaard.templates
 import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
 
-fun createHeader() : HEADER.() -> Unit = {
+fun createHeader(): HEADER.() -> Unit = {
     h1 { +"Skaard" }
 }
-fun createFooter() : FOOTER.() -> Unit = { }
-
+fun createFooter(): FOOTER.() -> Unit = { }
 
 fun createCustomHTML(block: DIV.() -> Unit) = buildString {
     appendLine("<!DOCTYPE html>")

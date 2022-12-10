@@ -8,7 +8,6 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
-
 import su.skaard.integration.discord.beans.ConnectionPeriodRegistryService
 
 internal class VoiceStateUpdateHandlerTest {

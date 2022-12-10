@@ -24,7 +24,7 @@ class CallOutMyNameCommand : DiscordCommand {
         val randInt = Random.nextInt(2, 50)
         val resultingA = StringBuilder()
         (1..randInt).forEach { _ -> resultingA.append('a') }
-        //event.interaction.respondPublic { content = "Sk${resultingA}rl!!" }
-        val response = deferred.respond { content = "Sk${resultingA}rl!!"  }
+        // event.interaction.respondPublic { content = "Sk${resultingA}rl!!" }
+        val response = deferred.respond { content = "Sk${resultingA}rl!!" }
     }
 }

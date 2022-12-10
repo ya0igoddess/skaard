@@ -2,9 +2,8 @@ package su.skaard.service
 
 import io.mockk.every
 import io.mockk.mockk
-import org.junit.jupiter.api.Test
-
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
 import su.skaard.model.discord.Channel
 import su.skaard.model.discord.Guild
 import su.skaard.model.discord.GuildMember
@@ -12,7 +11,7 @@ import su.skaard.model.discord.VoiceChannelConnectionPeriod
 import su.skaard.repositories.discord.VoiceChannelConnectionPeriodRepository
 
 internal class ConnectionPeriodServiceTest {
-    private val connectionsRepo = mockk<VoiceChannelConnectionPeriodRepository>(relaxed=true)
+    private val connectionsRepo = mockk<VoiceChannelConnectionPeriodRepository>(relaxed = true)
     private val service = ConnectionPeriodService(connectionsRepo)
 
     private val guild = mockk<Guild>(relaxed = true)
@@ -28,15 +27,16 @@ internal class ConnectionPeriodServiceTest {
         return connectionPeriod
     }
 
-
     @Test
     fun getChannelConnectionStat() {
         val periodsA = listOf(mockkPeriod(memberA), mockkPeriod(memberA))
         val periodsB = listOf(mockkPeriod(memberB), mockkPeriod(memberB), mockkPeriod(memberB))
-        every { connectionsRepo.getAllByChannelAndConnectionStartAfterAndConnectionEndBefore(
-            channel,
-            any(),
-            any())
+        every {
+            connectionsRepo.getAllByChannelAndConnectionStartAfterAndConnectionEndBefore(
+                channel,
+                any(),
+                any()
+            )
         } returns mutableListOf<VoiceChannelConnectionPeriod>().also {
             it.addAll(periodsA)
             it.addAll(periodsB)

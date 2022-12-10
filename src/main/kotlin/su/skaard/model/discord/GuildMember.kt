@@ -17,6 +17,4 @@ public class GuildMember(
     @JoinColumn(name = "guild")
     @ManyToOne
     val guild: Guild
-) {
-
-}
+)

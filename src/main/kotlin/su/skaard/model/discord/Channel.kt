@@ -17,5 +17,4 @@ class Channel(
     @JoinColumn(name = "guild")
     @ManyToOne
     val guild: Guild
-) {
-}
+)

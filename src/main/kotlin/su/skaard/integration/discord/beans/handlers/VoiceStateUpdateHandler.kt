@@ -13,10 +13,12 @@ class VoiceStateUpdateHandler @Autowired constructor(
 
     override suspend fun handle(event: Event) {
         if (event !is VoiceStateUpdateEvent) return
-        if (!isChannelSwitch(event)) return //interested in channel switch only
+        if (!isChannelSwitch(event)) return // interested in channel switch only
         event.old?.let { connectionPeriodRegistryService.closeConnection(it.sessionId) }
-        if (event.state.channelId != null) event.state.let {
-            connectionPeriodRegistryService.openConnection(it.sessionId, it.channelId!!, it.userId)
+        if (event.state.channelId != null) {
+            event.state.let {
+                connectionPeriodRegistryService.openConnection(it.sessionId, it.channelId!!, it.userId)
+            }
         }
     }
     private fun isChannelSwitch(stateChange: VoiceStateUpdateEvent) = stateChange.state.channelId != stateChange.old?.channelId

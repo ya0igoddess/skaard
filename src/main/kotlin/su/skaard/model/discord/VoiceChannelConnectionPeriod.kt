@@ -29,5 +29,4 @@ class VoiceChannelConnectionPeriod(
 
     @Column(name = "end_time")
     val connectionEnd: LocalDateTime
-) {
-}
+)
