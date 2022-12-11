@@ -24,14 +24,15 @@ class KordSingleton @Autowired constructor(
 
     @PostConstruct
     fun postInit() {
-        runBlocking { initKord() }
+        initKord()
     }
 
     @PreDestroy
-    fun preDestroy() {
-        runBlocking { kord.logout() }
+    fun preDestroy() = runBlocking {
+        kord.logout()
     }
-    private suspend fun initKord() {
+
+    private fun initKord() = runBlocking {
         val token = System.getenv("SKAARD_TOKEN")
         kord = Kord(token)
 
@@ -39,7 +40,7 @@ class KordSingleton @Autowired constructor(
         kordCommandRegistry.registerCommands(kord)
         kord.on<Event> { eventHandlers.forEach { it.handle(this) } }
 
-        CoroutineScope(kord.coroutineContext).launch {
+        launch {
             kord.login {
                 @OptIn(PrivilegedIntent::class)
                 intents += Intent.MessageContent
