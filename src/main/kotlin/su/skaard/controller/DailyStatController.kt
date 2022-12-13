@@ -26,7 +26,7 @@ class DailyStatController @Autowired constructor(
         date: LocalDate?
     ): String {
         val localDate = date ?: LocalDate.now()
-        val channel = channelRepository.find(channelId.toLong()) ?: throw IllegalArgumentException("NonExistingChannel")
+        val channel = channelRepository.searchById(channelId.toLong()) ?: throw IllegalArgumentException("NonExistingChannel")
         val stat = connectionPeriodService.getChannelConnectionStat(channel, localDate)
         return createCustomHTML(block = createActivityStat(stat, localDate))
     }

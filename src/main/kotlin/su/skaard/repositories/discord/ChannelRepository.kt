@@ -7,7 +7,7 @@ import java.util.*
 
 @Repository
 interface ChannelRepository : JpaRepository<Channel, Long> {
-    override fun findById(id: Long): Optional<Channel>
-    fun find(id: Long): Channel? = findById(id).orElse(null)
+    //override fun findById(id: Long): Optional<Channel>
+    fun searchById(id: Long): Channel?
     override fun <S : Channel> save(entity: S): S
 }

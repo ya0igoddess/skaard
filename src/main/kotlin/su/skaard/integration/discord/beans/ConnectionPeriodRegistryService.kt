@@ -36,8 +36,8 @@ class ConnectionPeriodRegistryService @Autowired constructor(
     }
 
     private fun saveConnection(connection: ClosedVoiceConnection) = connection.let {
-        val user = userRepository.find(it.userId.value.toLong()) ?: throw IntegrationPersistenceException()
-        val channel = channelRepository.find(it.channelId.value.toLong()) ?: throw IntegrationPersistenceException()
+        val user = userRepository.searchById(it.userId.value.toLong()) ?: throw IntegrationPersistenceException()
+        val channel = channelRepository.searchById(it.channelId.value.toLong()) ?: throw IntegrationPersistenceException()
         val guild = channel.guild
         val member = guildMemberRepository.getByGuildAndDiscordUser(guild, user) ?: throw IntegrationPersistenceException()
         voiceChannelConnectionPeriodRepository.save(

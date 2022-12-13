@@ -9,10 +9,8 @@ import java.util.*
 
 @Repository
 interface GuildMemberRepository : JpaRepository<GuildMember, Long> {
-    override fun findById(id: Long): Optional<GuildMember>
-    fun find(id: Long): GuildMember? = findById(id).orElse(null)
-    fun findByGuildAndDiscordUser(guild: Guild, discordUser: DiscordUser): Optional<GuildMember>
-    fun getByGuildAndDiscordUser(guild: Guild, discordUser: DiscordUser): GuildMember? =
-        findByGuildAndDiscordUser(guild, discordUser).orElse(null)
+    //override fun findById(id: Long): Optional<GuildMember>
+    fun searchById(id: Long): GuildMember?
+    fun getByGuildAndDiscordUser(guild: Guild, discordUser: DiscordUser): GuildMember?
     override fun <S : GuildMember> save(entity: S): S
 }

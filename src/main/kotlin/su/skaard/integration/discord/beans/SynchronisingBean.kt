@@ -41,7 +41,7 @@ class SynchronisingBean @Autowired constructor(
         logger.debug("Handling channel creation $voiceChannelCreateEvent")
         val discordChannel = voiceChannelCreateEvent.channel
         val discordGuild = discordChannel.guild
-        val guild = guildsRepository.find(discordGuild.id.value.toLong()) ?: throw IntegrationPersistenceException()
+        val guild = guildsRepository.searchById(discordGuild.id.value.toLong()) ?: throw IntegrationPersistenceException()
         val channel = Channel(discordChannel.id.value, guild)
         channelRepository.save(channel)
     }
@@ -50,7 +50,7 @@ class SynchronisingBean @Autowired constructor(
         logger.debug("Handling member joining $memberJoinEvent")
         val discordUser = memberJoinEvent.member.asUser()
         val user = syncUser(discordUser)
-        val guild = guildsRepository.find(memberJoinEvent.guild.id.value.toLong()) ?: throw IntegrationPersistenceException()
+        val guild = guildsRepository.searchById(memberJoinEvent.guild.id.value.toLong()) ?: throw IntegrationPersistenceException()
         val member = GuildMember(
             id = user.id,
             discordUser = user,
@@ -60,7 +60,7 @@ class SynchronisingBean @Autowired constructor(
     }
 
     suspend fun syncGuild(discordGuild: Guild) {
-        val guild = guildsRepository.find(discordGuild.id.value.toLong())
+        val guild = guildsRepository.searchById(discordGuild.id.value.toLong())
             ?: su.skaard.model.discord.Guild(
                 id = discordGuild.id.value
             )
@@ -70,7 +70,7 @@ class SynchronisingBean @Autowired constructor(
     }
 
     suspend fun syncChannel(discordChannel: GuildChannel, guild: su.skaard.model.discord.Guild) {
-        val channel = channelRepository.find(discordChannel.id.value.toLong())
+        val channel = channelRepository.searchById(discordChannel.id.value.toLong())
             ?: Channel(
                 id = discordChannel.id.value,
                 guild = guild
@@ -79,7 +79,7 @@ class SynchronisingBean @Autowired constructor(
     }
 
     suspend fun syncUser(discordUser: User): DiscordUser {
-        val user = discordUserRepository.find(discordUser.id.value.toLong())
+        val user = discordUserRepository.searchById(discordUser.id.value.toLong())
             ?: DiscordUser(
                 id = discordUser.id.value,
                 name = discordUser.username

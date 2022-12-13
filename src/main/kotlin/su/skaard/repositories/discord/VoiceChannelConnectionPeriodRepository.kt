@@ -9,8 +9,8 @@ import java.util.*
 
 @Repository
 interface VoiceChannelConnectionPeriodRepository : JpaRepository<VoiceChannelConnectionPeriod, Long> {
-    override fun findById(id: Long): Optional<VoiceChannelConnectionPeriod>
-    fun find(id: Long): VoiceChannelConnectionPeriod? = findById(id).orElse(null)
+    //override fun findById(id: Long): Optional<VoiceChannelConnectionPeriod>
+    fun searchById(id: Long): VoiceChannelConnectionPeriod?
     fun getAllByChannel(channel: Channel): List<VoiceChannelConnectionPeriod>
     fun getAllByChannelAndConnectionStartAfterAndConnectionEndBefore(
         channel: Channel,
