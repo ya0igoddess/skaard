@@ -5,7 +5,9 @@ import dev.kord.core.event.Event
 import dev.kord.core.on
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import su.skaard.integration.discord.beans.handlers.DiscordEventHandler
@@ -40,7 +42,7 @@ class KordSingleton @Autowired constructor(
         kordCommandRegistry.registerCommands(kord)
         kord.on<Event> { eventHandlers.forEach { it.handle(this) } }
 
-        launch {
+        CoroutineScope(kord.coroutineContext).launch {
             kord.login {
                 @OptIn(PrivilegedIntent::class)
                 intents += Intent.MessageContent
