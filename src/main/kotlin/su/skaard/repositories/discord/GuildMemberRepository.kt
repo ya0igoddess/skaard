@@ -5,11 +5,10 @@ import org.springframework.stereotype.Repository
 import su.skaard.model.discord.DiscordUser
 import su.skaard.model.discord.Guild
 import su.skaard.model.discord.GuildMember
-import java.util.*
 
 @Repository
 interface GuildMemberRepository : JpaRepository<GuildMember, Long> {
-    //override fun findById(id: Long): Optional<GuildMember>
+    // override fun findById(id: Long): Optional<GuildMember>
     fun searchById(id: Long): GuildMember?
     fun getByGuildAndDiscordUser(guild: Guild, discordUser: DiscordUser): GuildMember?
     override fun <S : GuildMember> save(entity: S): S
