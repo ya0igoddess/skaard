@@ -34,9 +34,9 @@ class KordSingleton @Autowired constructor(
         kord.logout()
     }
 
-    private fun initKord() = runBlocking {
+    private fun initKord() {
         val token = System.getenv("SKAARD_TOKEN")
-        kord = Kord(token)
+        kord = runBlocking { Kord(token) }
 
         synchronisingBean.synchronizeData(kord)
         kordCommandRegistry.registerCommands(kord)
