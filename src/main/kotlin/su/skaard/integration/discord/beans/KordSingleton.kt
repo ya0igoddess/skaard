@@ -35,6 +35,7 @@ class KordSingleton @Autowired constructor(
     }
 
     private fun initKord() {
+        logger.info("Initialising kord")
         val token = System.getenv("SKAARD_TOKEN")
         kord = runBlocking { Kord(token) }
 
