@@ -1,0 +1,27 @@
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          discord:
+            token-uri: https://discordapp.com/api/oauth2/token
+            authorization-uri: ${DISCORD_AUTH_URI}
+            user-info-uri: https://discordapp.com/api/users/@me
+            user-name-attribute: username
+        registration:
+          discord:
+            authorization-grant-type: authorization_code
+            client-id: ${DISCORD_CLIENT_ID}
+            redirect-uri: ${DISCORD_REDIRECT_URI}
+            client-secret: ${DISCORD_CLIENT_SECRET}
+  datasource:
+    password: '12345678'
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/skaard
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+    properties:
+      hibernate:
+        format_sql: 'true'
