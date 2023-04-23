@@ -25,3 +25,7 @@ spring:
     properties:
       hibernate:
         format_sql: 'true'
+skaard:
+  core:
+    bot:
+      start: 'false'
