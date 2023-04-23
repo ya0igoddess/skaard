@@ -1,7 +1,7 @@
 
 plugins {
-    id("org.springframework.boot") version "2.7.11"
-    id("io.spring.dependency-management") version "1.0.15.RELEASE"
+    id("org.springframework.boot") version "3.0.6"
+    id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version "1.8.20"
     kotlin("plugin.spring") version "1.8.20"
 }
@@ -12,9 +12,9 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.11")
-    implementation("org.springframework.boot:spring-boot-starter-web:2.7.11")
-    implementation("org.springframework.boot:spring-boot-starter-security:2.7.6")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.20")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.20")

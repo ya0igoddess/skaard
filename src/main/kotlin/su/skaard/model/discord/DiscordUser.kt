@@ -1,6 +1,6 @@
 package su.skaard.model.discord
 
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity(name = "DiscordUser")
 @Table(name = "skaard_discord_user")
