@@ -5,6 +5,7 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 plugins {
     id("org.springframework.boot")
     id("io.spring.dependency-management")
+    kotlin("plugin.jpa")
     kotlin("jvm")
     kotlin("plugin.spring")
 }
