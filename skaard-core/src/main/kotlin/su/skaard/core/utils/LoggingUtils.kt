@@ -1,7 +1,7 @@
 @file:JvmName("LoggingUtils")
 @file:JvmMultifileClass
 
-package su.skaard.utils
+package su.skaard.core.utils
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

@@ -1,8 +1,8 @@
-package su.skaard.utils
+package su.skaard.core.utils
 
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken
-import su.skaard.model.discord.DiscordUser
-import su.skaard.security.OAuth2DiscordUser
+import su.skaard.core.entities.discord.DiscordUser
+import su.skaard.core.security.OAuth2DiscordUser
 import java.security.Principal
 
 /*

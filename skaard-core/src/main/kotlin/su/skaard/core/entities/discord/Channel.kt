@@ -1,4 +1,4 @@
-package su.skaard.model.discord
+package su.skaard.core.entities.discord
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

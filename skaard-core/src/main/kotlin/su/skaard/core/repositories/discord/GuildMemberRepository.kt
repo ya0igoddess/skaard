@@ -1,10 +1,10 @@
-package su.skaard.repositories.discord
+package su.skaard.core.repositories.discord
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
-import su.skaard.model.discord.DiscordUser
-import su.skaard.model.discord.Guild
-import su.skaard.model.discord.GuildMember
+import su.skaard.core.entities.discord.DiscordUser
+import su.skaard.core.entities.discord.Guild
+import su.skaard.core.entities.discord.GuildMember
 
 @Repository
 interface GuildMemberRepository : JpaRepository<GuildMember, Long> {

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service
 import su.skaard.model.discord.Channel
 import su.skaard.model.discord.DiscordUser
 import su.skaard.model.discord.Guild
-import su.skaard.repositories.discord.GuildMemberRepository
+import su.skaard.core.repositories.discord.GuildMemberRepository
 
 @Service
 class SecurityService @Autowired constructor(

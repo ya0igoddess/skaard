@@ -15,12 +15,12 @@ import org.springframework.transaction.annotation.Transactional
 import su.skaard.model.discord.Channel
 import su.skaard.model.discord.DiscordUser
 import su.skaard.model.discord.GuildMember
-import su.skaard.repositories.discord.ChannelRepository
-import su.skaard.repositories.discord.DiscordUserRepository
-import su.skaard.repositories.discord.GuildMemberRepository
-import su.skaard.repositories.discord.GuildsRepository
-import su.skaard.utils.IntegrationPersistenceException
-import su.skaard.utils.getLogger
+import su.skaard.core.repositories.discord.ChannelRepository
+import su.skaard.core.repositories.discord.DiscordUserRepository
+import su.skaard.core.repositories.discord.GuildMemberRepository
+import su.skaard.core.repositories.discord.GuildsRepository
+import su.skaard.core.utils.IntegrationPersistenceException
+import su.skaard.core.utils.getLogger
 
 /**
  * Synchronizes Discord Api guild, channel and member data with local DB.

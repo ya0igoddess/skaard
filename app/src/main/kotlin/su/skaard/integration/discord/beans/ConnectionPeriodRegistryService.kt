@@ -3,12 +3,15 @@ package su.skaard.integration.discord.beans
 import dev.kord.common.entity.Snowflake
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import su.skaard.core.repositories.discord.ChannelRepository
+import su.skaard.core.repositories.discord.DiscordUserRepository
+import su.skaard.core.repositories.discord.GuildMemberRepository
 import su.skaard.integration.discord.model.ClosedVoiceConnection
 import su.skaard.integration.discord.model.OpenedVoiceConnection
 import su.skaard.model.discord.VoiceChannelConnectionPeriod
 import su.skaard.repositories.discord.*
-import su.skaard.utils.IntegrationPersistenceException
-import su.skaard.utils.getLogger
+import su.skaard.core.utils.IntegrationPersistenceException
+import su.skaard.core.utils.getLogger
 
 @Component
 class ConnectionPeriodRegistryService @Autowired constructor(

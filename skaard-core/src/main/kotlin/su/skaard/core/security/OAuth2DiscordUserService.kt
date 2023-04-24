@@ -1,10 +1,10 @@
-package su.skaard.security
+package su.skaard.core.security
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.core.user.OAuth2User
-import su.skaard.repositories.discord.DiscordUserRepository
+import su.skaard.core.repositories.discord.DiscordUserRepository
 
 class OAuth2DiscordUserService(private val userRepository: DiscordUserRepository) : DefaultOAuth2UserService() {
     override fun loadUser(userRequest: OAuth2UserRequest?): OAuth2User {

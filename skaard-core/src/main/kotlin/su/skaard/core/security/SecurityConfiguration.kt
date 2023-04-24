@@ -1,4 +1,4 @@
-package su.skaard.security
+package su.skaard.core.security
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService
 import org.springframework.security.web.SecurityFilterChain
-import su.skaard.repositories.discord.DiscordUserRepository
+import su.skaard.core.repositories.discord.DiscordUserRepository
 
 @Configuration
 @EnableWebSecurity
@@ -16,7 +16,7 @@ class SecurityConfiguration @Autowired constructor(private val discordUserReposi
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .authorizeRequests()
+            .authorizeHttpRequests()
             .anyRequest().authenticated()
             .and()
             .oauth2Login()

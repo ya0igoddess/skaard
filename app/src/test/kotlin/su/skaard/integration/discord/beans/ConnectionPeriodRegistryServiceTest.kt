@@ -7,9 +7,9 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import su.skaard.repositories.discord.ChannelRepository
-import su.skaard.repositories.discord.DiscordUserRepository
-import su.skaard.repositories.discord.GuildMemberRepository
+import su.skaard.core.repositories.discord.ChannelRepository
+import su.skaard.core.repositories.discord.DiscordUserRepository
+import su.skaard.core.repositories.discord.GuildMemberRepository
 import su.skaard.repositories.discord.VoiceChannelConnectionPeriodRepository
 
 internal class ConnectionPeriodRegistryServiceTest {
