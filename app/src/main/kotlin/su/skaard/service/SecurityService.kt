@@ -2,9 +2,9 @@ package su.skaard.service
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import su.skaard.model.discord.Channel
-import su.skaard.model.discord.DiscordUser
-import su.skaard.model.discord.Guild
+import su.skaard.core.entities.discord.Channel
+import su.skaard.core.entities.discord.DiscordUser
+import su.skaard.core.entities.discord.Guild
 import su.skaard.core.repositories.discord.GuildMemberRepository
 
 @Service

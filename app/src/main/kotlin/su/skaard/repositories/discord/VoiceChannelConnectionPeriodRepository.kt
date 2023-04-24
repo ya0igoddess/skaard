@@ -2,7 +2,7 @@ package su.skaard.repositories.discord
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
-import su.skaard.model.discord.Channel
+import su.skaard.core.entities.discord.Channel
 import su.skaard.model.discord.VoiceChannelConnectionPeriod
 import java.time.LocalDateTime
 

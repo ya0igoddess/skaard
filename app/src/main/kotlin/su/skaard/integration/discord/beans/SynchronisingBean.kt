@@ -8,7 +8,7 @@ import dev.kord.core.entity.channel.GuildChannel
 import dev.kord.core.event.channel.VoiceChannelCreateEvent
 import dev.kord.core.event.guild.MemberJoinEvent
 import org.springframework.transaction.annotation.Transactional
-import su.skaard.model.discord.DiscordUser
+import su.skaard.core.entities.discord.DiscordUser
 
 interface SynchronisingBean {
     @Transactional
@@ -16,7 +16,7 @@ interface SynchronisingBean {
     fun handleVoiceChannelCreateEvent(voiceChannelCreateEvent: VoiceChannelCreateEvent)
     fun handleMemberJoinEvent(memberJoinEvent: MemberJoinEvent)
     fun syncGuild(discordGuild: Guild)
-    fun syncChannel(discordChannel: GuildChannel, guild: su.skaard.model.discord.Guild)
+    fun syncChannel(discordChannel: GuildChannel, guild: su.skaard.core.entities.discord.Guild)
     fun syncUser(discordUser: User): DiscordUser
-    fun syncGuildMember(discordMember: Member, guild: su.skaard.model.discord.Guild)
+    fun syncGuildMember(discordMember: Member, guild: su.skaard.core.entities.discord.Guild)
 }

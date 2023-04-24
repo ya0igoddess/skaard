@@ -12,9 +12,9 @@ import kotlinx.coroutines.runBlocking
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import su.skaard.model.discord.Channel
-import su.skaard.model.discord.DiscordUser
-import su.skaard.model.discord.GuildMember
+import su.skaard.core.entities.discord.Channel
+import su.skaard.core.entities.discord.DiscordUser
+import su.skaard.core.entities.discord.GuildMember
 import su.skaard.core.repositories.discord.ChannelRepository
 import su.skaard.core.repositories.discord.DiscordUserRepository
 import su.skaard.core.repositories.discord.GuildMemberRepository
@@ -42,7 +42,7 @@ class SynchronisingBeanImpl @Autowired constructor(
     }
 
     override fun handleVoiceChannelCreateEvent(voiceChannelCreateEvent: VoiceChannelCreateEvent) {
-        logger.debug("Handling channel creation $voiceChannelCreateEvent")
+        logger.debug("Handling channel creation {}", voiceChannelCreateEvent)
         val discordChannel = voiceChannelCreateEvent.channel
         val discordGuild = discordChannel.guild
         val guild =
@@ -52,7 +52,7 @@ class SynchronisingBeanImpl @Autowired constructor(
     }
 
     override fun handleMemberJoinEvent(memberJoinEvent: MemberJoinEvent) {
-        logger.debug("Handling member joining $memberJoinEvent")
+        logger.debug("Handling member joining {}", memberJoinEvent)
         val discordUser = runBlocking { memberJoinEvent.member.asUser() }
         val user = syncUser(discordUser)
         val guild = guildsRepository.searchById(memberJoinEvent.guild.id.value.toLong())
@@ -67,7 +67,7 @@ class SynchronisingBeanImpl @Autowired constructor(
 
     override fun syncGuild(discordGuild: Guild) {
         val guild = guildsRepository.searchById(discordGuild.id.value.toLong())
-            ?: su.skaard.model.discord.Guild(
+            ?: su.skaard.core.entities.discord.Guild(
                 id = discordGuild.id.value
             )
         guildsRepository.save(guild)
@@ -75,7 +75,7 @@ class SynchronisingBeanImpl @Autowired constructor(
         runBlocking { discordGuild.members.toList() }.forEach { syncGuildMember(it, guild) }
     }
 
-    override fun syncChannel(discordChannel: GuildChannel, guild: su.skaard.model.discord.Guild) {
+    override fun syncChannel(discordChannel: GuildChannel, guild: su.skaard.core.entities.discord.Guild) {
         val channel = channelRepository.searchById(discordChannel.id.value.toLong())
             ?: Channel(
                 id = discordChannel.id.value,
@@ -93,7 +93,7 @@ class SynchronisingBeanImpl @Autowired constructor(
         return discordUserRepository.save(user)
     }
 
-    override fun syncGuildMember(discordMember: Member, guild: su.skaard.model.discord.Guild) {
+    override fun syncGuildMember(discordMember: Member, guild: su.skaard.core.entities.discord.Guild) {
         val user = syncUser(runBlocking { discordMember.asUser() })
         val member = guildMemberRepository.getByGuildAndDiscordUser(guild, user)
             ?: GuildMember(

@@ -2,8 +2,8 @@ package su.skaard.service
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import su.skaard.model.discord.Channel
-import su.skaard.model.discord.GuildMember
+import su.skaard.core.entities.discord.Channel
+import su.skaard.core.entities.discord.GuildMember
 import su.skaard.model.discord.VoiceChannelConnectionPeriod
 import su.skaard.repositories.discord.VoiceChannelConnectionPeriodRepository
 import java.time.LocalDate

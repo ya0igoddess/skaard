@@ -4,9 +4,9 @@ import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import su.skaard.model.discord.Channel
-import su.skaard.model.discord.Guild
-import su.skaard.model.discord.GuildMember
+import su.skaard.core.entities.discord.Channel
+import su.skaard.core.entities.discord.Guild
+import su.skaard.core.entities.discord.GuildMember
 import su.skaard.model.discord.VoiceChannelConnectionPeriod
 import su.skaard.repositories.discord.VoiceChannelConnectionPeriodRepository
 

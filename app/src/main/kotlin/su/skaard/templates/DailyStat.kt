@@ -1,7 +1,7 @@
 package su.skaard.templates
 
 import kotlinx.html.*
-import su.skaard.model.discord.GuildMember
+import su.skaard.core.entities.discord.GuildMember
 import su.skaard.model.discord.VoiceChannelConnectionPeriod
 import java.time.Duration
 import java.time.LocalDate

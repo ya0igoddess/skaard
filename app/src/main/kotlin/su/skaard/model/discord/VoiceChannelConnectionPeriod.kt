@@ -8,6 +8,8 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
+import su.skaard.core.entities.discord.Channel
+import su.skaard.core.entities.discord.GuildMember
 
 @Entity(name = "VoiceChannelConnectionPeriod")
 @Table(name = "skaard_discord_voice_connection_period")
