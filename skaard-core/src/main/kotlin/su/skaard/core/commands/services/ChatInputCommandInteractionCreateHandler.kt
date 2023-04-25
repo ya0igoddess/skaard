@@ -1,4 +1,4 @@
-package su.skaard.integration.discord.beans.handlers
+package su.skaard.core.commands.services
 
 import dev.kord.core.event.Event
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
