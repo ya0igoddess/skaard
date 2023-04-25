@@ -1,4 +1,4 @@
-package su.skaard.integration.discord.model.command
+package su.skaard.core.commands
 
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import dev.kord.rest.builder.interaction.GlobalChatInputCreateBuilder

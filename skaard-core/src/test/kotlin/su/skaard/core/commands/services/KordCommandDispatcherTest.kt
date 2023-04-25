@@ -1,4 +1,4 @@
-package su.skaard.integration.discord.beans
+package su.skaard.core.commands.services
 
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import io.mockk.coVerify
@@ -7,7 +7,7 @@ import io.mockk.mockk
 import io.mockk.spyk
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
-import su.skaard.integration.discord.model.command.DiscordCommand
+import su.skaard.core.commands.DiscordCommand
 
 internal class KordCommandDispatcherTest {
 

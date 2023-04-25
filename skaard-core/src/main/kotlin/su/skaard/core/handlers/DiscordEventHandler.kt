@@ -1,4 +1,4 @@
-package su.skaard.integration.discord.beans.handlers
+package su.skaard.core.handlers
 
 import dev.kord.core.event.Event
 

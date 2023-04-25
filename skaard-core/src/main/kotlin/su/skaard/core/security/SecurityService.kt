@@ -1,4 +1,4 @@
-package su.skaard.service
+package su.skaard.core.security
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

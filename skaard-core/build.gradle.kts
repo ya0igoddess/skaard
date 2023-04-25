@@ -3,6 +3,7 @@ version = rootProject.version
 
 val kotlinVersion: String by project
 val springBootVersion: String by project
+val kordVersion:String by project
 
 plugins {
     kotlin("jvm")
@@ -27,6 +28,20 @@ dependencies {
 
     implementation("org.springframework.security:spring-security-oauth2-client:6.0.3")
 
+    implementation("dev.kord:kord-core:$kordVersion")
+
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
+
+    testImplementation("io.mockk:mockk-jvm:1.13.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+}
+
+tasks.test {
+    useJUnitPlatform()
 }

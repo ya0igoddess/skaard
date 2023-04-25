@@ -4,6 +4,7 @@ import dev.kord.core.behavior.interaction.response.respond
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import dev.kord.rest.builder.interaction.GlobalChatInputCreateBuilder
 import org.springframework.stereotype.Component
+import su.skaard.core.commands.DiscordCommand
 import kotlin.random.Random
 
 @Component(CallOutMyNameCommand.commandName)

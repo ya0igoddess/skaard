@@ -5,6 +5,7 @@ import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import dev.kord.rest.builder.interaction.GlobalChatInputCreateBuilder
 import dev.kord.rest.builder.interaction.int
 import org.springframework.stereotype.Component
+import su.skaard.core.commands.DiscordCommand
 
 @Component(CreatePermutationCommand.commandName)
 class CreatePermutationCommand : DiscordCommand {
