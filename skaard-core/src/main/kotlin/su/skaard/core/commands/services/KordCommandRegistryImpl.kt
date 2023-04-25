@@ -1,10 +1,10 @@
-package su.skaard.integration.discord.beans
+package su.skaard.core.commands.services
 
 import dev.kord.core.Kord
 import kotlinx.coroutines.runBlocking
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import su.skaard.integration.discord.model.command.DiscordCommand
+import su.skaard.core.commands.DiscordCommand
 
 @Component
 class KordCommandRegistryImpl @Autowired constructor(

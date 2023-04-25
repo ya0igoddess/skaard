@@ -2,6 +2,8 @@ group = rootProject.group
 version = rootProject.version
 java.sourceCompatibility = JavaVersion.VERSION_17
 
+val kordVersion: String by project
+
 plugins {
     id("org.springframework.boot")
     id("io.spring.dependency-management")
@@ -21,7 +23,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.20")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.20")
-    implementation("dev.kord:kord-core:0.8.0-M15")
+    implementation("dev.kord:kord-core:$kordVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
 
     //skaard dependencies

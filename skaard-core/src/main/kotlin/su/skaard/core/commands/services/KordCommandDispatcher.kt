@@ -1,4 +1,4 @@
-package su.skaard.integration.discord.beans
+package su.skaard.core.commands.services
 
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import org.springframework.beans.factory.annotation.Autowired

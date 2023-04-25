@@ -10,10 +10,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import su.skaard.integration.discord.beans.handlers.DiscordEventHandler
+import su.skaard.core.handlers.DiscordEventHandler
 import su.skaard.core.utils.getLogger
 import jakarta.annotation.PostConstruct
 import jakarta.annotation.PreDestroy
+import su.skaard.core.commands.services.KordCommandRegistry
+import su.skaard.core.synchronization.services.SynchronisingBean
 
 @Component
 class KordSingleton @Autowired constructor(

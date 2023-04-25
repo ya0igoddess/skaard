@@ -7,7 +7,9 @@ import io.mockk.mockk
 import io.mockk.spyk
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
-import su.skaard.integration.discord.model.command.DiscordCommand
+import su.skaard.core.commands.DiscordCommand
+import su.skaard.core.commands.services.KordCommandDispatcher
+import su.skaard.core.commands.services.KordCommandRegistryImpl
 
 internal class KordCommandDispatcherTest {
 
