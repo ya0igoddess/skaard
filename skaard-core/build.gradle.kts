@@ -32,6 +32,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
 
     testImplementation("io.mockk:mockk-jvm:1.13.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")

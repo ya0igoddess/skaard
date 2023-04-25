@@ -1,4 +1,4 @@
-package su.skaard.templates
+package su.skaard.core.templates
 
 import kotlinx.html.*
 import kotlinx.html.stream.appendHTML

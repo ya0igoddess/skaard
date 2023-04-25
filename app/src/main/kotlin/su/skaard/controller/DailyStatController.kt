@@ -11,7 +11,7 @@ import su.skaard.core.repositories.discord.ChannelRepository
 import su.skaard.service.ConnectionPeriodService
 import su.skaard.core.security.SecurityService
 import su.skaard.templates.createActivityStat
-import su.skaard.templates.createCustomHTML
+import su.skaard.core.templates.createCustomHTML
 import su.skaard.core.utils.asDiscordUser
 import java.nio.file.AccessDeniedException
 import java.security.Principal
