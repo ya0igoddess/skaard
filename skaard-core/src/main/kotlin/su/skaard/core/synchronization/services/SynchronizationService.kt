@@ -26,13 +26,13 @@ import su.skaard.core.utils.getLogger
  * Synchronizes Discord Api guild, channel and member data with local DB.
  */
 @Component
-class SynchronisingBeanImpl @Autowired constructor(
+class SynchronizationService @Autowired constructor(
     private val channelRepository: ChannelRepository,
     private val discordUserRepository: DiscordUserRepository,
     private val guildMemberRepository: GuildMemberRepository,
     private val guildsRepository: GuildsRepository
-) : SynchronisingBean {
-    private val logger = getLogger(SynchronisingBeanImpl::class.java)
+) : ISynchronizationService {
+    private val logger = getLogger(SynchronizationService::class.java)
 
     @Transactional
     override fun synchronizeData(kord: Kord) {
