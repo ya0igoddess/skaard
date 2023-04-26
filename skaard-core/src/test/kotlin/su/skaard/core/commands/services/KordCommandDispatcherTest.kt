@@ -13,7 +13,7 @@ internal class KordCommandDispatcherTest {
 
     val commandA = mockk<DiscordCommand>(relaxed = true)
     val commandB = mockk<DiscordCommand>(relaxed = true)
-    private val registry = KordCommandRegistryImpl(
+    private val registry = KordCommandRegistry(
         mapOf(
             "commandA" to commandA,
             "commandB" to commandB

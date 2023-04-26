@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component
 
 @Component
 class KordCommandDispatcher @Autowired constructor(
-    private val commandRegistry: KordCommandRegistry
-) {
-    suspend fun handleCommandEvent(chatInputEvent: ChatInputCommandInteractionCreateEvent) {
+    private val commandRegistry: IKordCommandRegistry
+) : IKordCommandDispatcher {
+    override suspend fun handleCommandEvent(chatInputEvent: ChatInputCommandInteractionCreateEvent) {
         val commandName = chatInputEvent.interaction.invokedCommandName
         commandRegistry.commands[commandName]?.execute(chatInputEvent)
     }
