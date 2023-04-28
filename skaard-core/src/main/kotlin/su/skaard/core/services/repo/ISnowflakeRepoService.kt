@@ -7,8 +7,7 @@ interface ISnowflakeRepoService<T>: IRepoService<T> {
         return getById(id.value.toLong())
     }
 
-    fun deleteBySnowflake(id: Snowflake): T? {
-        return deleteById(id.value.toLong())
+    fun deleteBySnowflake(id: Snowflake) {
+        deleteById(id.value.toLong())
     }
-
 }

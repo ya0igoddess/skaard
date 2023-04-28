@@ -6,5 +6,5 @@ interface IRepoService<T> {
 
     fun deleteById(id: Long): T?
 
-    fun save(id: Long): T?
+    fun save(entity: Long): T
 }
