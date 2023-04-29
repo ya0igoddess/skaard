@@ -5,14 +5,14 @@ import dev.kord.core.event.guild.MemberJoinEvent
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import su.skaard.core.handlers.DiscordEventHandler
-import su.skaard.core.synchronization.services.SynchronisingBean
+import su.skaard.core.synchronization.services.ISynchronizationService
 
 @Component
 class MemberJoinHandler @Autowired constructor(
-    private val synchronisingBean: SynchronisingBean
+    private val ISynchronizationService: ISynchronizationService
 ) : DiscordEventHandler {
     override suspend fun handle(event: Event) {
         if (event !is MemberJoinEvent) return
-        synchronisingBean.handleMemberJoinEvent(event)
+        ISynchronizationService.handleMemberJoinEvent(event)
     }
 }

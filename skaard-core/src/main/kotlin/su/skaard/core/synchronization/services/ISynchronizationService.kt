@@ -10,7 +10,7 @@ import dev.kord.core.event.guild.MemberJoinEvent
 import org.springframework.transaction.annotation.Transactional
 import su.skaard.core.entities.discord.DiscordUser
 
-interface SynchronisingBean {
+interface ISynchronizationService {
     @Transactional
     fun synchronizeData(kord: Kord)
     fun handleVoiceChannelCreateEvent(voiceChannelCreateEvent: VoiceChannelCreateEvent)

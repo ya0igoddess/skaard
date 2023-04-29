@@ -8,7 +8,7 @@ public class GuildMember(
     @Id
     @GeneratedValue
     @Column(name = "id")
-    val id: ULong,
+    val id: ULong = 0UL,
 
     @JoinColumn(name = "discord_user")
     @ManyToOne
