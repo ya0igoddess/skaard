@@ -14,14 +14,15 @@ import su.skaard.core.handlers.DiscordEventHandler
 import su.skaard.core.utils.getLogger
 import jakarta.annotation.PostConstruct
 import jakarta.annotation.PreDestroy
+import org.springframework.beans.factory.getBeansOfType
+import org.springframework.context.ApplicationContext
 import su.skaard.core.commands.services.IKordCommandRegistry
+import su.skaard.core.initializer.IKordPreInitializer
 import su.skaard.core.synchronization.services.ISynchronizationService
 
 @Component
 class KordSingleton @Autowired constructor(
-    val ISynchronizationService: ISynchronizationService,
-    val kordCommandRegistry: IKordCommandRegistry,
-    val eventHandlers: List<DiscordEventHandler>
+    val context: ApplicationContext,
 ) {
     private final val logger = getLogger(KordSingleton::class.java)
     lateinit var kord: Kord
@@ -41,9 +42,7 @@ class KordSingleton @Autowired constructor(
         val token = System.getenv("SKAARD_TOKEN")
         kord = runBlocking { Kord(token) }
 
-        ISynchronizationService.synchronizeData(kord)
-        kordCommandRegistry.registerCommands(kord)
-        kord.on<Event> { eventHandlers.forEach { it.handle(this) } }
+        context.getBeansOfType<IKordPreInitializer>().values.forEach { it.preInitialize(kord) }
 
         CoroutineScope(kord.coroutineContext).launch {
             kord.login {
