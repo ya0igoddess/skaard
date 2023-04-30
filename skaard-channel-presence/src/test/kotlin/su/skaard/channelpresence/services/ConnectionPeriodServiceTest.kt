@@ -1,16 +1,14 @@
 package su.skaard.channelpresence.services
 
-
 import io.mockk.every
 import io.mockk.mockk
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import su.skaard.channelpresence.model.entities.VoiceChannelConnectionPeriod
+import su.skaard.channelpresence.repositories.VoiceChannelConnectionPeriodRepository
 import su.skaard.core.entities.discord.Channel
 import su.skaard.core.entities.discord.Guild
 import su.skaard.core.entities.discord.GuildMember
-import su.skaard.channelpresence.model.entities.VoiceChannelConnectionPeriod
-import su.skaard.channelpresence.repositories.VoiceChannelConnectionPeriodRepository
-import su.skaard.channelpresence.services.ConnectionPeriodService
 
 internal class ConnectionPeriodServiceTest {
     private val connectionsRepo = mockk<VoiceChannelConnectionPeriodRepository>(relaxed = true)
@@ -44,7 +42,7 @@ internal class ConnectionPeriodServiceTest {
             it.addAll(periodsB)
         }
         val resultMap = service.getChannelConnectionStat(channel)
-        assertArrayEquals(arrayOf(periodsA), arrayOf(resultMap[memberA]))
-        assertArrayEquals(arrayOf(periodsB), arrayOf(resultMap[memberB]))
+        Assertions.assertArrayEquals(arrayOf(periodsA), arrayOf(resultMap[memberA]))
+        Assertions.assertArrayEquals(arrayOf(periodsB), arrayOf(resultMap[memberB]))
     }
 }

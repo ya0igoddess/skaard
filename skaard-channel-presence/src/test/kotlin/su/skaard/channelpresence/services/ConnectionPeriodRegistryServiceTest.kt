@@ -1,4 +1,4 @@
-package su.skaard.integration.discord.beans
+package su.skaard.channelpresence.services
 
 import dev.kord.common.entity.Snowflake
 import io.mockk.confirmVerified
