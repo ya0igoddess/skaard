@@ -1,4 +1,4 @@
-package su.skaard.model.discord
+package su.skaard.channelpresence.model.entities
 
 import java.time.LocalDateTime
 import jakarta.persistence.Column

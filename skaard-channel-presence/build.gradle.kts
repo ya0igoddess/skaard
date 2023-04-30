@@ -24,12 +24,14 @@ dependencyManagement {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-web")
 
-    implementation("dev.kord:kord-core:$kordVersion")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
+
+    implementation("dev.kord:kord-core:$kordVersion")
 
     //skaard dependencies
     implementation(project(":skaard-core"))

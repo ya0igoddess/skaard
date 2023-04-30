@@ -1,4 +1,4 @@
-package su.skaard.integration.discord.beans
+package su.skaard.channelpresence.services
 
 import dev.kord.common.entity.Snowflake
 import org.springframework.beans.factory.annotation.Autowired
@@ -6,15 +6,15 @@ import org.springframework.stereotype.Component
 import su.skaard.core.repositories.discord.ChannelRepository
 import su.skaard.core.repositories.discord.DiscordUserRepository
 import su.skaard.core.repositories.discord.GuildMemberRepository
-import su.skaard.integration.discord.model.ClosedVoiceConnection
-import su.skaard.integration.discord.model.OpenedVoiceConnection
-import su.skaard.model.discord.VoiceChannelConnectionPeriod
-import su.skaard.repositories.discord.*
+import su.skaard.channelpresence.model.periods.ClosedVoiceConnection
+import su.skaard.channelpresence.model.periods.OpenedVoiceConnection
+import su.skaard.channelpresence.model.entities.VoiceChannelConnectionPeriod
+import su.skaard.channelpresence.repositories.VoiceChannelConnectionPeriodRepository
 import su.skaard.core.utils.IntegrationPersistenceException
 import su.skaard.core.utils.getLogger
 
 @Component
-class ConnectionPeriodRegistryService @Autowired constructor(
+class ConnectionPeriodRegistryService(
     val userRepository: DiscordUserRepository,
     val guildMemberRepository: GuildMemberRepository,
     val channelRepository: ChannelRepository,

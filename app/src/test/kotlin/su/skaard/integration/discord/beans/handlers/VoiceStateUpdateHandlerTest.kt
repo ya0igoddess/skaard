@@ -8,7 +8,8 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
-import su.skaard.integration.discord.beans.ConnectionPeriodRegistryService
+import su.skaard.channelpresence.handlers.VoiceStateUpdateHandler
+import su.skaard.channelpresence.services.ConnectionPeriodRegistryService
 
 internal class VoiceStateUpdateHandlerTest {
     private val connectionPeriodRegistryService = mockk<ConnectionPeriodRegistryService>(relaxed = true)

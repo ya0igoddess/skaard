@@ -1,9 +1,9 @@
-package su.skaard.repositories.discord
+package su.skaard.channelpresence.repositories
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import su.skaard.core.entities.discord.Channel
-import su.skaard.model.discord.VoiceChannelConnectionPeriod
+import su.skaard.channelpresence.model.entities.VoiceChannelConnectionPeriod
 import java.time.LocalDateTime
 
 @Repository

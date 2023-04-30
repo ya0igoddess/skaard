@@ -1,11 +1,11 @@
-package su.skaard.integration.discord.beans.handlers
+package su.skaard.channelpresence.handlers
 
 import dev.kord.core.event.Event
 import dev.kord.core.event.user.VoiceStateUpdateEvent
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import su.skaard.core.handlers.DiscordEventHandler
-import su.skaard.integration.discord.beans.ConnectionPeriodRegistryService
+import su.skaard.channelpresence.services.ConnectionPeriodRegistryService
 
 @Component
 class VoiceStateUpdateHandler @Autowired constructor(

@@ -1,4 +1,4 @@
-package su.skaard.controller
+package su.skaard.channelpresence.controllers
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.format.annotation.DateTimeFormat
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 import su.skaard.core.repositories.discord.GuildsRepository
-import su.skaard.service.ConnectionPeriodService
+import su.skaard.channelpresence.services.ConnectionPeriodService
 import su.skaard.core.security.SecurityService
-import su.skaard.templates.createActivityStat
+import su.skaard.channelpresence.templates.createActivityStat
 import su.skaard.core.templates.createCustomHTML
 import su.skaard.core.utils.asDiscordUser
 import java.nio.file.AccessDeniedException

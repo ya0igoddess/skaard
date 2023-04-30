@@ -1,4 +1,5 @@
-package su.skaard.service
+package su.skaard.channelpresence.services
+
 
 import io.mockk.every
 import io.mockk.mockk
@@ -7,8 +8,9 @@ import org.junit.jupiter.api.Test
 import su.skaard.core.entities.discord.Channel
 import su.skaard.core.entities.discord.Guild
 import su.skaard.core.entities.discord.GuildMember
-import su.skaard.model.discord.VoiceChannelConnectionPeriod
-import su.skaard.repositories.discord.VoiceChannelConnectionPeriodRepository
+import su.skaard.channelpresence.model.entities.VoiceChannelConnectionPeriod
+import su.skaard.channelpresence.repositories.VoiceChannelConnectionPeriodRepository
+import su.skaard.channelpresence.services.ConnectionPeriodService
 
 internal class ConnectionPeriodServiceTest {
     private val connectionsRepo = mockk<VoiceChannelConnectionPeriodRepository>(relaxed = true)
