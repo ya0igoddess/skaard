@@ -1,8 +1,8 @@
-package su.skaard.templates
+package su.skaard.channelpresence.templates
 
 import kotlinx.html.*
 import su.skaard.core.entities.discord.GuildMember
-import su.skaard.model.discord.VoiceChannelConnectionPeriod
+import su.skaard.channelpresence.model.entities.VoiceChannelConnectionPeriod
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime

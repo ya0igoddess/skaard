@@ -1,4 +1,4 @@
-package su.skaard.integration.discord.model
+package su.skaard.channelpresence.model.periods
 
 import dev.kord.common.entity.Snowflake
 import java.time.LocalDateTime

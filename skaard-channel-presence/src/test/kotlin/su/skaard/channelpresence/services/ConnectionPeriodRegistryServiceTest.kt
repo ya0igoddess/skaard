@@ -1,4 +1,4 @@
-package su.skaard.integration.discord.beans
+package su.skaard.channelpresence.services
 
 import dev.kord.common.entity.Snowflake
 import io.mockk.confirmVerified
@@ -10,7 +10,8 @@ import org.junit.jupiter.api.Test
 import su.skaard.core.repositories.discord.ChannelRepository
 import su.skaard.core.repositories.discord.DiscordUserRepository
 import su.skaard.core.repositories.discord.GuildMemberRepository
-import su.skaard.repositories.discord.VoiceChannelConnectionPeriodRepository
+import su.skaard.channelpresence.repositories.VoiceChannelConnectionPeriodRepository
+import su.skaard.channelpresence.services.ConnectionPeriodRegistryService
 
 internal class ConnectionPeriodRegistryServiceTest {
     private val userRepository: DiscordUserRepository = mockk(relaxed = true)

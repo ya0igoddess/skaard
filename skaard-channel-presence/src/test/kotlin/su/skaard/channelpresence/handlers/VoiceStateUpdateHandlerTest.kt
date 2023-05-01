@@ -1,4 +1,4 @@
-package su.skaard.integration.discord.beans.handlers
+package su.skaard.channelpresence.handlers
 
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.event.user.VoiceStateUpdateEvent
@@ -8,7 +8,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
-import su.skaard.integration.discord.beans.ConnectionPeriodRegistryService
+import su.skaard.channelpresence.services.ConnectionPeriodRegistryService
 
 internal class VoiceStateUpdateHandlerTest {
     private val connectionPeriodRegistryService = mockk<ConnectionPeriodRegistryService>(relaxed = true)

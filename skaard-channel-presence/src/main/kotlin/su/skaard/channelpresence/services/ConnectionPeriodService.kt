@@ -1,17 +1,17 @@
-package su.skaard.service
+package su.skaard.channelpresence.services
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import su.skaard.core.entities.discord.Channel
 import su.skaard.core.entities.discord.GuildMember
-import su.skaard.model.discord.VoiceChannelConnectionPeriod
-import su.skaard.repositories.discord.VoiceChannelConnectionPeriodRepository
+import su.skaard.channelpresence.model.entities.VoiceChannelConnectionPeriod
+import su.skaard.channelpresence.repositories.VoiceChannelConnectionPeriodRepository
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.stream.Collectors
 
 @Service
-class ConnectionPeriodService @Autowired constructor(
+class ConnectionPeriodService(
     val connectionPeriodRepository: VoiceChannelConnectionPeriodRepository
 ) {
     fun getChannelConnectionStat(

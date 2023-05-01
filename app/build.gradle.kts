@@ -28,6 +28,7 @@ dependencies {
 
     //skaard dependencies
     implementation(project(":skaard-core"))
+    implementation(project(":skaard-channel-presence"))
 
     runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.6")
     runtimeOnly("org.postgresql:postgresql:42.3.8")

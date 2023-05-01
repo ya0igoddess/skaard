@@ -21,3 +21,4 @@ pluginManagement {
 
 include("app")
 include("skaard-core")
+include("skaard-channel-presence")
