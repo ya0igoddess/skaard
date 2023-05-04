@@ -12,6 +12,6 @@ interface GuildMemberRepository : JpaRepository<GuildMember, Long> {
     fun searchById(id: Long): GuildMember?
     fun getByGuildAndDiscordUser(guild: Guild, discordUser: DiscordUser): GuildMember?
 
-    fun getByGuildIdAndDiscordUserId(guild: ULong, discordUserId: ULong): GuildMember?
+    fun getByGuildIdAndDiscordUserId(guild: Long, discordUserId: Long): GuildMember?
     override fun <S : GuildMember> save(entity: S): S
 }

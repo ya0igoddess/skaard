@@ -35,7 +35,7 @@ class GuildMemberService(
     override fun getByExternal(extEntity: Member): GuildMember? {
         val guildId = extEntity.guildId.value
         val userId = extEntity.memberData.userId.value
-        return repo.getByGuildIdAndDiscordUserId(guildId, userId)
+        return repo.getByGuildIdAndDiscordUserId(guildId.toLong(), userId.toLong())
     }
 
     override fun createFromExternal(extEntity: Member): GuildMember {
