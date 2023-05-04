@@ -4,6 +4,7 @@ import dev.kord.core.behavior.interaction.response.respond
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import dev.kord.rest.builder.interaction.GlobalChatInputCreateBuilder
 import dev.kord.rest.builder.interaction.int
+import dev.kord.rest.builder.interaction.integer
 import org.springframework.stereotype.Component
 import su.skaard.core.commands.DiscordCommand
 
@@ -19,7 +20,7 @@ class CreatePermutationCommand : DiscordCommand {
         get() = "Creates a permutation with the given number of elements"
     override val builder: GlobalChatInputCreateBuilder.() -> Unit
         get() = {
-            int("n", "Number of elements") { required = true }
+            integer("n", "Number of elements") { required = true }
         }
 
     override suspend fun execute(event: ChatInputCommandInteractionCreateEvent) {
