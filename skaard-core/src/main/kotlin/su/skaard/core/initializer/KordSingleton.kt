@@ -1,4 +1,4 @@
-package su.skaard.integration.discord.beans
+package su.skaard.core.initializer
 
 import dev.kord.core.Kord
 import dev.kord.gateway.Intent
@@ -6,14 +6,14 @@ import dev.kord.gateway.PrivilegedIntent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import su.skaard.core.utils.getLogger
 import jakarta.annotation.PostConstruct
 import jakarta.annotation.PreDestroy
-import su.skaard.core.initializer.IKordPreInitializer
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 
 @Component
+@ConditionalOnProperty("skaard.core.bot.start", matchIfMissing = false)
 class KordSingleton(
     private val preInits: List<IKordPreInitializer>,
 ) {
