@@ -5,7 +5,7 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 val kordVersion: String by project
 
 plugins {
-    id("org.springframework.boot")
+    //id("org.springframework.boot")
     id("io.spring.dependency-management")
     kotlin("plugin.jpa")
     kotlin("jvm")
