@@ -1,9 +1,8 @@
-package su.skaard.integration.discord.model.command
+package su.skaard.example.commands
 
 import dev.kord.core.behavior.interaction.response.respond
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import dev.kord.rest.builder.interaction.GlobalChatInputCreateBuilder
-import dev.kord.rest.builder.interaction.int
 import dev.kord.rest.builder.interaction.integer
 import org.springframework.stereotype.Component
 import su.skaard.core.commands.DiscordCommand

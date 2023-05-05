@@ -1,4 +1,4 @@
-package su.skaard.integration.discord.model.command
+package su.skaard.example.commands
 
 import dev.kord.core.behavior.interaction.response.respond
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
