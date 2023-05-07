@@ -1,5 +1,3 @@
-group = "su.skaard.channel-presence"
-version = rootProject.version
 
 val kotlinVersion: String by project
 val springBootVersion: String by project
@@ -34,7 +32,7 @@ dependencies {
     implementation("dev.kord:kord-core:$kordVersion")
 
     //skaard dependencies
-    implementation(project(":skaard-core"))
+    implementation(project(":core"))
 
     testImplementation("io.mockk:mockk-jvm:1.13.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")

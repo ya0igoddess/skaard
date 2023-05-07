@@ -1,5 +1,3 @@
-group = "su.skaard.core"
-version = rootProject.version
 
 val kotlinVersion: String by project
 val springBootVersion: String by project
