@@ -22,6 +22,6 @@ pluginManagement {
     }
 }
 
-include("skaard-core")
-include("skaard-channel-presence")
-//include("skaard-template-module")
+include("core")
+include("channel-presence")
+//include("template-module")
