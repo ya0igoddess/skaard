@@ -8,14 +8,11 @@
 name: Gradle publish release
 
 on:
-  release:
-    types: published
+  push:
+    branches: [main]
 
 permissions:
   contents: read
-
-env:
-  TOKEN: ${{ secrets.TOKEN }}
 
 jobs:
   build:
@@ -33,9 +30,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
         
-      - name: Gradle Build
-        run: gradle build
+#       - name: Gradle Build
+#         run: gradle build
         
       - name: Gradle Publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gradle publish
         
