@@ -35,5 +35,7 @@ jobs:
 #         run: gradle build
         
       - name: Gradle Publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gradle publish
         
