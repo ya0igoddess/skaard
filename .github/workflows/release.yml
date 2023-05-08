@@ -36,6 +36,7 @@ jobs:
         
       - name: Gradle Publish
         env:
+          GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gradle publish
         
