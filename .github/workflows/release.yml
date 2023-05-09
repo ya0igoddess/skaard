@@ -31,12 +31,9 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
         
-#       - name: Gradle Build
-#         run: gradle build
-        
       - name: Gradle Publish
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gradle publish
+        run: gradle -Pversion=${{ github.event.release.tag_name }} publish
         
