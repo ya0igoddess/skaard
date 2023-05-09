@@ -1,6 +1,5 @@
 group = "su.skaard.core"
-rootProject.version = System.getProperty("version")
-version = rootProject.version
+version = project.properties["version"] as String
 
 subprojects {
     apply(plugin = "java-library")
