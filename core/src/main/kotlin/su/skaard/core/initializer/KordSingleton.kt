@@ -17,7 +17,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 @ConditionalOnProperty("skaard.core.bot.start", matchIfMissing = false)
 class KordSingleton(
     private val preInits: List<IKordPreInitializer>,
-    @Value("#{skaard.bot.token}")
+    @Value("\${skaard.core.bot.token}")
     private val token: String
 ) {
     private final val logger = getLogger(KordSingleton::class.java)

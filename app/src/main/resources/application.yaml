@@ -28,4 +28,5 @@ spring:
 skaard:
   core:
     bot:
-      start: 'true'
+      start: true
+      token: ${SKAARD_TOKEN}
