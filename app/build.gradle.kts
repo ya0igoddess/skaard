@@ -5,7 +5,7 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 val kordVersion: String by project
 
 plugins {
-    //id("org.springframework.boot")
+    id("org.springframework.boot")
     id("io.spring.dependency-management")
     kotlin("plugin.jpa")
     kotlin("jvm")
@@ -27,8 +27,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
 
     //skaard dependencies
-    implementation(project(":skaard-core"))
-    implementation(project(":skaard-channel-presence"))
+    implementation(project(":core"))
+    implementation(project(":channel-presence"))
 
     //runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.6")
     runtimeOnly("org.postgresql:postgresql:42.3.8")
