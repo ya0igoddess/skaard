@@ -1,20 +1,12 @@
 package su.skaard.core.entities.discord
 
-import jakarta.persistence.*
+import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Table
 
-@Entity(name = "DiscordGuildMember")
 @Table(name = "skaard_discord_guild_member")
 public class GuildMember(
     @Id
-    @GeneratedValue
-    @Column(name = "id")
     val id: ULong = 0UL,
-
-    @JoinColumn(name = "discord_user")
-    @ManyToOne
     val discordUser: DiscordUser,
-
-    @JoinColumn(name = "guild")
-    @ManyToOne
     val guild: Guild
 )
