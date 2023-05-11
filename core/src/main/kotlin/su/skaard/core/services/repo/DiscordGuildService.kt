@@ -8,23 +8,23 @@ import su.skaard.core.repositories.discord.GuildsRepository
 class DiscordGuildService(
     private val repo: GuildsRepository
 ): IGuildService {
-    override fun getById(id: Long): Guild? {
-        return repo.searchById(id)
+    override suspend fun getById(id: ULong): Guild? {
+        return repo.findById(id)
     }
 
-    override fun deleteById(id: Long) {
+    override suspend fun deleteById(id: ULong) {
         repo.deleteById(id)
     }
 
-    override fun save(entity: Guild): Guild {
+    override suspend fun save(entity: Guild): Guild {
         return repo.save(entity)
     }
 
-    override fun getByExternal(extEntity: dev.kord.core.entity.Guild): Guild? {
+    override suspend fun getByExternal(extEntity: dev.kord.core.entity.Guild): Guild? {
         return getBySnowflake(extEntity.id)
     }
 
-    override fun createFromExternal(extEntity: dev.kord.core.entity.Guild): Guild {
+    override suspend fun createFromExternal(extEntity: dev.kord.core.entity.Guild): Guild {
         val guild = Guild(
             id = extEntity.id.value
         )

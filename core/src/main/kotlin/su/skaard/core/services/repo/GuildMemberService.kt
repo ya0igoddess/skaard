@@ -16,29 +16,29 @@ class GuildMemberService(
     private val guildSync: ISyncRepoService<Guild, dev.kord.core.entity.Guild>,
     private val userSync: ISyncRepoService<DiscordUser, User>
 ) : IGuildMemberService {
-    override fun getByGuildAndUser(guild: Guild, user: DiscordUser): GuildMember? {
+    override suspend fun getByGuildAndUser(guild: Guild, user: DiscordUser): GuildMember? {
         return repo.getByGuildAndDiscordUser(guild, user)
     }
 
-    override fun getById(id: Long): GuildMember? {
-        return repo.searchById(id)
+    override suspend fun getById(id: ULong): GuildMember? {
+        return repo.findById(id)
     }
 
-    override fun deleteById(id: Long) {
+    override suspend fun deleteById(id: ULong) {
         repo.deleteById(id)
     }
 
-    override fun save(entity: GuildMember): GuildMember {
+    override suspend fun save(entity: GuildMember): GuildMember {
         return repo.save(entity)
     }
 
-    override fun getByExternal(extEntity: Member): GuildMember? {
+    override suspend fun getByExternal(extEntity: Member): GuildMember? {
         val guildId = extEntity.guildId.value
         val userId = extEntity.memberData.userId.value
         return repo.getByGuildIdAndDiscordUserId(guildId.toLong(), userId.toLong())
     }
 
-    override fun createFromExternal(extEntity: Member): GuildMember {
+    override suspend fun createFromExternal(extEntity: Member): GuildMember {
         val guild = runBlocking { guildSync.findOrCreateFromExt(extEntity.getGuild()) }
         val user = runBlocking { userSync.findOrCreateFromExt(extEntity.asUser()) }
         val member = GuildMember(

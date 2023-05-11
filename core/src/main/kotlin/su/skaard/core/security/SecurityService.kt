@@ -8,14 +8,14 @@ import su.skaard.core.entities.discord.Guild
 import su.skaard.core.repositories.discord.GuildMemberRepository
 
 @Service
-class SecurityService @Autowired constructor(
+class SecurityService(
     val guildMemberRepository: GuildMemberRepository
 ) {
-    fun isUserMemberOfGuild(user: DiscordUser, guild: Guild): Boolean {
+    suspend fun isUserMemberOfGuild(user: DiscordUser, guild: Guild): Boolean {
         return guildMemberRepository.getByGuildAndDiscordUser(guild, user) != null
     }
 
-    fun isUserMemberOfChannel(user: DiscordUser, channel: Channel): Boolean {
+    suspend fun isUserMemberOfChannel(user: DiscordUser, channel: Channel): Boolean {
         return isUserMemberOfGuild(user, channel.guild)
     }
 }

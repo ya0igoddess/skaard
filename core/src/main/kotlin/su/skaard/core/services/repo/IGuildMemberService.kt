@@ -6,6 +6,6 @@ import su.skaard.core.entities.discord.Guild
 import su.skaard.core.entities.discord.GuildMember
 import su.skaard.core.synchronization.services.ISyncRepoService
 
-interface IGuildMemberService: IRepoService<GuildMember>, ISyncRepoService<GuildMember, Member> {
-    fun getByGuildAndUser(guild: Guild, user: DiscordUser): GuildMember?
+interface IGuildMemberService: IRepoService<GuildMember, ULong>, ISyncRepoService<GuildMember, Member> {
+    suspend fun getByGuildAndUser(guild: Guild, user: DiscordUser): GuildMember?
 }

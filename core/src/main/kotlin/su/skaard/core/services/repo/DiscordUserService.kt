@@ -9,23 +9,23 @@ import su.skaard.core.repositories.discord.DiscordUserRepository
 class DiscordUserService(
     private val repository: DiscordUserRepository
 ): IDiscordUserService {
-    override fun getById(id: Long): DiscordUser? {
-        return repository.searchById(id)
+    override suspend fun getById(id: ULong): DiscordUser? {
+        return repository.findById(id)
     }
 
-    override fun deleteById(id: Long) {
+    override suspend fun deleteById(id: ULong) {
         repository.deleteById(id)
     }
 
-    override fun save(entity: DiscordUser): DiscordUser {
+    override suspend fun save(entity: DiscordUser): DiscordUser {
         return repository.save(entity)
     }
 
-    override fun getByExternal(extEntity: User): DiscordUser? {
+    override suspend fun getByExternal(extEntity: User): DiscordUser? {
         return getBySnowflake(extEntity.id)
     }
 
-    override fun createFromExternal(extEntity: User): DiscordUser {
+    override suspend fun createFromExternal(extEntity: User): DiscordUser {
         val user = extEntity.let { DiscordUser(
             id = it.id.value,
             name = it.username

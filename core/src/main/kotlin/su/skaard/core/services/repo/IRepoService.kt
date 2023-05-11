@@ -1,10 +1,10 @@
 package su.skaard.core.services.repo
-interface IRepoService<T> {
+interface IRepoService<T, ID> {
 
-    fun getById(id: Long): T?
+    suspend fun getById(id: ID): T?
 
 
-    fun deleteById(id: Long)
+    suspend fun deleteById(id: ID)
 
-    fun save(entity: T): T
+    suspend fun save(entity: T): T
 }

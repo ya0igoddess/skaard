@@ -10,23 +10,23 @@ class DiscordChannelService(
     private val repo: ChannelRepository,
     private val guildRepo: ISnowflakeRepoService<Guild>
 ) : IDiscordChannelService {
-    override fun getById(id: Long): Channel? {
+    override suspend fun getById(id: ULong): Channel? {
         return repo.searchById(id)
     }
 
-    override fun deleteById(id: Long) {
+    override suspend fun deleteById(id: ULong) {
         repo.deleteById(id)
     }
 
-    override fun save(entity: Channel): Channel {
+    override suspend fun save(entity: Channel): Channel {
         return repo.save(entity)
     }
 
-    override fun getByExternal(extEntity: dev.kord.core.entity.channel.Channel): Channel? {
+    override suspend fun getByExternal(extEntity: dev.kord.core.entity.channel.Channel): Channel? {
         return getBySnowflake(extEntity.id)
     }
 
-    override fun createFromExternal(extEntity: dev.kord.core.entity.channel.Channel): Channel {
+    override suspend fun createFromExternal(extEntity: dev.kord.core.entity.channel.Channel): Channel {
         val guild = guildRepo.getBySnowflake(requireNotNull(extEntity.data.guildId.value))
         val channel = Channel(
             id = extEntity.id.value,

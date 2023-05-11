@@ -37,25 +37,25 @@ class SynchronizationService @Autowired constructor(
     @Transactional
     override fun synchronizeData(kord: Kord) {
         logger.info("Kord synchronization started")
-        runBlocking { kord.guilds.toList() }.forEach(this::syncGuild)
+        runBlocking { kord.guilds.toList().forEach { syncGuild(it) } }
         logger.info("Kord synchronization finished")
     }
 
-    override fun handleVoiceChannelCreateEvent(voiceChannelCreateEvent: VoiceChannelCreateEvent) {
+    override suspend fun handleVoiceChannelCreateEvent(voiceChannelCreateEvent: VoiceChannelCreateEvent) {
         logger.debug("Handling channel creation {}", voiceChannelCreateEvent)
         val discordChannel = voiceChannelCreateEvent.channel
         val discordGuild = discordChannel.guild
         val guild =
-            guildsRepository.searchById(discordGuild.id.value.toLong()) ?: throw IntegrationPersistenceException()
+            guildsRepository.findById(discordGuild.id.value) ?: throw IntegrationPersistenceException()
         val channel = Channel(discordChannel.id.value, guild)
         channelRepository.save(channel)
     }
 
-    override fun handleMemberJoinEvent(memberJoinEvent: MemberJoinEvent) {
+    override suspend fun handleMemberJoinEvent(memberJoinEvent: MemberJoinEvent) {
         logger.debug("Handling member joining {}", memberJoinEvent)
         val discordUser = runBlocking { memberJoinEvent.member.asUser() }
         val user = syncUser(discordUser)
-        val guild = guildsRepository.searchById(memberJoinEvent.guild.id.value.toLong())
+        val guild = guildsRepository.findById(memberJoinEvent.guild.id.value)
             ?: throw IntegrationPersistenceException()
         val member = GuildMember(
             id = user.id,
@@ -65,8 +65,8 @@ class SynchronizationService @Autowired constructor(
         guildMemberRepository.save(member)
     }
 
-    override fun syncGuild(discordGuild: Guild) {
-        val guild = guildsRepository.searchById(discordGuild.id.value.toLong())
+    override suspend fun syncGuild(discordGuild: Guild) {
+        val guild = guildsRepository.findById(discordGuild.id.value)
             ?: su.skaard.core.entities.discord.Guild(
                 id = discordGuild.id.value
             )
@@ -75,8 +75,8 @@ class SynchronizationService @Autowired constructor(
         runBlocking { discordGuild.members.toList() }.forEach { syncGuildMember(it, guild) }
     }
 
-    override fun syncChannel(discordChannel: GuildChannel, guild: su.skaard.core.entities.discord.Guild) {
-        val channel = channelRepository.searchById(discordChannel.id.value.toLong())
+    override suspend fun syncChannel(discordChannel: GuildChannel, guild: su.skaard.core.entities.discord.Guild) {
+        val channel = channelRepository.searchById(discordChannel.id.value)
             ?: Channel(
                 id = discordChannel.id.value,
                 guild = guild
@@ -84,8 +84,8 @@ class SynchronizationService @Autowired constructor(
         channelRepository.save(channel)
     }
 
-    override fun syncUser(discordUser: User): DiscordUser {
-        val user = discordUserRepository.searchById(discordUser.id.value.toLong())
+    override suspend fun syncUser(discordUser: User): DiscordUser {
+        val user = discordUserRepository.findById(discordUser.id.value)
             ?: DiscordUser(
                 id = discordUser.id.value,
                 name = discordUser.username
@@ -93,7 +93,7 @@ class SynchronizationService @Autowired constructor(
         return discordUserRepository.save(user)
     }
 
-    override fun syncGuildMember(discordMember: Member, guild: su.skaard.core.entities.discord.Guild) {
+    override suspend fun syncGuildMember(discordMember: Member, guild: su.skaard.core.entities.discord.Guild) {
         val user = syncUser(runBlocking { discordMember.asUser() })
         val member = guildMemberRepository.getByGuildAndDiscordUser(guild, user)
             ?: GuildMember(
