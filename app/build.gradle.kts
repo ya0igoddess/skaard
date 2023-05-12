@@ -30,7 +30,7 @@ dependencies {
     //implementation(project(":channel-presence"))
 
     //runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.6")
-    runtimeOnly("org.postgresql:postgresql:42.3.8")
+    runtimeOnly("org.postgresql:r2dbc-postgresql:1.0.1.RELEASE")
 
     testImplementation("io.mockk:mockk-jvm:1.13.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")

@@ -14,17 +14,12 @@ spring:
             client-id: ${DISCORD_CLIENT_ID}
             redirect-uri: ${DISCORD_REDIRECT_URI}
             client-secret: ${DISCORD_CLIENT_SECRET}
-  datasource:
+
+  r2dbc:
     password: '12345678'
     username: postgres
-    url: jdbc:postgresql://localhost:5432/skaard
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: 'false'
-    properties:
-      hibernate:
-        format_sql: 'false'
+    url: r2dbc:postgresql://localhost:5432/skaard
+
 skaard:
   core:
     bot:

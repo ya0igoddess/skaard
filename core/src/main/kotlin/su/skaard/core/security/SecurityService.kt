@@ -16,6 +16,6 @@ class SecurityService(
     }
 
     suspend fun isUserMemberOfChannel(user: DiscordUser, channel: Channel): Boolean {
-        return isUserMemberOfGuild(user, channel.guild)
+        return isUserMemberOfGuild(user, Guild(channel.guildId))
     }
 }
