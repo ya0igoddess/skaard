@@ -1,20 +1,17 @@
 package su.skaard.channelpresence.repositories
 
-import org.springframework.data.jpa.repository.JpaRepository
+import kotlinx.coroutines.flow.Flow
+import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.stereotype.Repository
-import su.skaard.core.entities.discord.Channel
 import su.skaard.channelpresence.model.entities.VoiceChannelConnectionPeriod
 import java.time.LocalDateTime
 
 @Repository
-interface VoiceChannelConnectionPeriodRepository : JpaRepository<VoiceChannelConnectionPeriod, Long> {
-    // override fun findById(id: Long): Optional<VoiceChannelConnectionPeriod>
-    fun searchById(id: Long): VoiceChannelConnectionPeriod?
-    fun getAllByChannel(channel: Channel): List<VoiceChannelConnectionPeriod>
-    fun getAllByChannelAndConnectionStartAfterAndConnectionEndBefore(
-        channel: Channel,
+interface VoiceChannelConnectionPeriodRepository : CoroutineCrudRepository<VoiceChannelConnectionPeriod, Long> {
+    suspend fun getAllByChannelId(channelId: Long): Flow<VoiceChannelConnectionPeriod>
+    suspend fun getAllByChannelIdAndConnectionStartAfterAndConnectionEndBefore(
+        channelId: Long,
         connectionStart: LocalDateTime,
         connectionEnd: LocalDateTime
-    ): List<VoiceChannelConnectionPeriod>
-    override fun <S : VoiceChannelConnectionPeriod> save(entity: S): S
+    ): Flow<VoiceChannelConnectionPeriod>
 }

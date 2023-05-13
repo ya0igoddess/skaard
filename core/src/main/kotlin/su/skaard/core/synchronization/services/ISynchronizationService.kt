@@ -11,12 +11,11 @@ import org.springframework.transaction.annotation.Transactional
 import su.skaard.core.entities.discord.DiscordUser
 
 interface ISynchronizationService {
-    @Transactional
     fun synchronizeData(kord: Kord)
-    fun handleVoiceChannelCreateEvent(voiceChannelCreateEvent: VoiceChannelCreateEvent)
-    fun handleMemberJoinEvent(memberJoinEvent: MemberJoinEvent)
-    fun syncGuild(discordGuild: Guild)
-    fun syncChannel(discordChannel: GuildChannel, guild: su.skaard.core.entities.discord.Guild)
-    fun syncUser(discordUser: User): DiscordUser
-    fun syncGuildMember(discordMember: Member, guild: su.skaard.core.entities.discord.Guild)
+    suspend fun handleVoiceChannelCreateEvent(voiceChannelCreateEvent: VoiceChannelCreateEvent)
+    suspend fun handleMemberJoinEvent(memberJoinEvent: MemberJoinEvent)
+    suspend fun syncGuild(discordGuild: Guild)
+    suspend fun syncChannel(discordChannel: GuildChannel)
+    suspend fun syncUser(discordUser: User)
+    suspend fun syncGuildMember(discordMember: Member)
 }

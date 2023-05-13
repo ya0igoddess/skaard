@@ -73,9 +73,9 @@ private fun createMemberDailyStat(
     periods: List<VoiceChannelConnectionPeriod>,
     date: LocalDate
 ): DIV.() -> Unit = {
-    div { +member.discordUser.name }
+/*    div { +member.discordUser.name }
     val periodList = createActivityPeriodList(periods, date)
-    div("activity-line", createMemberActivityLine(periodList))
+    div("activity-line", createMemberActivityLine(periodList))*/
 }
 
 fun createActivityStat(stat: Map<GuildMember, List<VoiceChannelConnectionPeriod>>, date: LocalDate): DIV.() -> Unit = {

@@ -1,11 +1,11 @@
 package su.skaard.channelpresence.services
 
-import org.springframework.beans.factory.annotation.Autowired
+import kotlinx.coroutines.flow.toList
 import org.springframework.stereotype.Service
-import su.skaard.core.entities.discord.Channel
 import su.skaard.core.entities.discord.GuildMember
 import su.skaard.channelpresence.model.entities.VoiceChannelConnectionPeriod
 import su.skaard.channelpresence.repositories.VoiceChannelConnectionPeriodRepository
+import su.skaard.core.entities.discord.DiscordChannel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.stream.Collectors
@@ -14,18 +14,17 @@ import java.util.stream.Collectors
 class ConnectionPeriodService(
     val connectionPeriodRepository: VoiceChannelConnectionPeriodRepository
 ) {
-    fun getChannelConnectionStat(
-        channel: Channel,
+    suspend fun getChannelConnectionStat(
+        channel: DiscordChannel,
         date: LocalDate = LocalDateTime.now().toLocalDate()
-    ): Map<GuildMember, List<VoiceChannelConnectionPeriod>> {
-        val connections = connectionPeriodRepository.getAllByChannelAndConnectionStartAfterAndConnectionEndBefore(
-            channel = channel,
+    ): Map<Long, List<VoiceChannelConnectionPeriod>> {
+        val connections = connectionPeriodRepository.getAllByChannelIdAndConnectionStartAfterAndConnectionEndBefore(
+            channelId = channel.id,
             connectionStart = date.atStartOfDay(),
             connectionEnd = date.plusDays(1).atStartOfDay()
         )
-        val periodsByMember = connections.stream()
-            .collect(Collectors.groupingBy { it.member })
-        periodsByMember.values.forEach { it.sortBy(VoiceChannelConnectionPeriod::connectionStart) }
-        return periodsByMember
+        return  connections.toList().groupBy { it.memberId }
+            .map { (k,v) -> k to v.sortedBy { it.connectionStart } }
+            .toMap()
     }
 }

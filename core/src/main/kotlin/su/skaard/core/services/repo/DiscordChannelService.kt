@@ -1,36 +1,39 @@
 package su.skaard.core.services.repo
 
 import org.springframework.stereotype.Service
-import su.skaard.core.entities.discord.Channel
-import su.skaard.core.entities.discord.Guild
+import su.skaard.core.entities.discord.DiscordChannel
+import su.skaard.core.entities.discord.DiscordGuild
 import su.skaard.core.repositories.discord.ChannelRepository
+import su.skaard.core.utils.lvalue
 
 @Service
 class DiscordChannelService(
     private val repo: ChannelRepository,
-    private val guildRepo: ISnowflakeRepoService<Guild>
+    private val guildRepo: ISnowflakeRepoService<DiscordGuild>
 ) : IDiscordChannelService {
-    override fun getById(id: Long): Channel? {
-        return repo.searchById(id)
+    override suspend fun getById(id: Long): DiscordChannel? {
+        return repo.findById(id)
     }
 
-    override fun deleteById(id: Long) {
+    override suspend fun deleteById(id: Long) {
         repo.deleteById(id)
     }
 
-    override fun save(entity: Channel): Channel {
+    override suspend fun save(entity: DiscordChannel): DiscordChannel {
         return repo.save(entity)
     }
 
-    override fun getByExternal(extEntity: dev.kord.core.entity.channel.Channel): Channel? {
+    override suspend fun getByExternal(extEntity: dev.kord.core.entity.channel.Channel): DiscordChannel? {
         return getBySnowflake(extEntity.id)
     }
 
-    override fun createFromExternal(extEntity: dev.kord.core.entity.channel.Channel): Channel {
-        val guild = guildRepo.getBySnowflake(requireNotNull(extEntity.data.guildId.value))
-        val channel = Channel(
-            id = extEntity.id.value,
-            guild = requireNotNull(guild)
+    override suspend fun createFromExternal(extEntity: dev.kord.core.entity.channel.Channel): DiscordChannel {
+        val guildId = requireNotNull(extEntity.data.guildId.value)
+        val guild = requireNotNull(guildRepo.getBySnowflake(guildId))
+        val channel = DiscordChannel(
+            id = extEntity.id.lvalue,
+            guildId = guild.id,
+            isNew = true
         )
         return repo.save(channel)
     }

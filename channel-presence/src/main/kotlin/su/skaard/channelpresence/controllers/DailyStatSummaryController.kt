@@ -30,13 +30,13 @@ class DailyStatSummaryController @Autowired constructor(
     @GetMapping("/daily-stat/summary")
     @ResponseBody
     fun getDailyStatSummary(
-        @RequestParam guildId: ULong,
+        @RequestParam guildId: Long,
         @RequestParam(required = false)
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         date: LocalDate?,
         principal: Principal
     ): String {
-        val localDate = date ?: LocalDate.now()
+/*        val localDate = date ?: LocalDate.now()
         val guild = guildsRepository.searchById(guildId.toLong()) ?: throw IllegalArgumentException("NonExisting guild")
         val user = principal.asDiscordUser() ?: throw IllegalStateException("Principal association to user failed")
         if (!securityService.isUserMemberOfGuild(user, guild)) {
@@ -45,6 +45,7 @@ class DailyStatSummaryController @Autowired constructor(
         val stats = guild.channels.map(periodService::getChannelConnectionStat)
         return createCustomHTML {
             stats.forEach { createActivityStat(it, localDate)() }
-        }
+        }*/
+        return ""
     }
 }

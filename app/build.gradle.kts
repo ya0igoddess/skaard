@@ -18,8 +18,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.20")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.20")
@@ -28,10 +27,10 @@ dependencies {
 
     //skaard dependencies
     implementation(project(":core"))
-    implementation(project(":channel-presence"))
+    //implementation(project(":channel-presence"))
 
     //runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.6")
-    runtimeOnly("org.postgresql:postgresql:42.3.8")
+    runtimeOnly("org.postgresql:r2dbc-postgresql:1.0.1.RELEASE")
 
     testImplementation("io.mockk:mockk-jvm:1.13.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
