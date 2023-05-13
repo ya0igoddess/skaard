@@ -7,6 +7,7 @@ import dev.kord.core.entity.User
 import dev.kord.core.entity.channel.GuildChannel
 import dev.kord.core.event.channel.VoiceChannelCreateEvent
 import dev.kord.core.event.guild.MemberJoinEvent
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.springframework.beans.factory.annotation.Autowired
@@ -31,13 +32,15 @@ class SynchronizationService(
     private val channelRepository: ChannelRepository,
     private val discordUserRepository: DiscordUserRepository,
     private val guildMemberRepository: GuildMemberRepository,
-    private val guildsRepository: GuildsRepository
+    private val guildsRepository: GuildsRepository,
+    private val guildSyncService: IDiscordSyncRepoService<su.skaard.core.entities.discord.Guild, Guild>,
+    private val channelSyncService: IDiscordSyncRepoService<Channel, dev.kord.core.entity.channel.Channel>,
 ) : ISynchronizationService {
     private val logger = getLogger(SynchronizationService::class.java)
 
     override fun synchronizeData(kord: Kord) {
         logger.info("Kord synchronization started")
-        //runBlocking { kord.guilds.toList().forEach { syncGuild(it) } }
+        runBlocking { kord.guilds.collect(::syncGuild) }
         logger.info("Kord synchronization finished")
     }
 
@@ -66,22 +69,13 @@ class SynchronizationService(
     }
 
     override suspend fun syncGuild(discordGuild: Guild) {
-        val guild = guildsRepository.findById(discordGuild.id.lvalue)
-            ?: su.skaard.core.entities.discord.Guild(
-                id = discordGuild.id.lvalue
-            )
-        guildsRepository.save(guild)
-        //runBlocking { discordGuild.channels.toList() }.forEach { syncChannel(it, guild) }
+        guildSyncService.findOrCreateFromExt(discordGuild)
+        discordGuild.channels.collect(::syncChannel)
         //runBlocking { discordGuild.members.toList() }.forEach { syncGuildMember(it, guild) }
     }
 
-    override suspend fun syncChannel(discordChannel: GuildChannel, guild: su.skaard.core.entities.discord.Guild) {
-        val channel = channelRepository.findById(discordChannel.id.lvalue)
-            ?: Channel(
-                id = discordChannel.id.lvalue,
-                guildId = 0L
-            )
-        channelRepository.save(channel)
+    override suspend fun syncChannel(discordChannel: GuildChannel) {
+         channelSyncService.findOrCreateFromExt(discordChannel)
     }
 
     override suspend fun syncUser(discordUser: User): DiscordUser {

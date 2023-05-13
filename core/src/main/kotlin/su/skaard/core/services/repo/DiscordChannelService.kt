@@ -28,10 +28,12 @@ class DiscordChannelService(
     }
 
     override suspend fun createFromExternal(extEntity: dev.kord.core.entity.channel.Channel): Channel {
-        val guild = requireNotNull(guildRepo.getBySnowflake(requireNotNull(extEntity.data.guildId.value)))
+        val guildId = requireNotNull(extEntity.data.guildId.value)
+        val guild = requireNotNull(guildRepo.getBySnowflake(guildId))
         val channel = Channel(
             id = extEntity.id.lvalue,
-            guildId = guild.id
+            guildId = guild.id,
+            isNew = true
         )
         return repo.save(channel)
     }

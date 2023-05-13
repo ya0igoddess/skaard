@@ -27,7 +27,8 @@ class DiscordGuildService(
 
     override suspend fun createFromExternal(extEntity: dev.kord.core.entity.Guild): Guild {
         val guild = Guild(
-            id = extEntity.id.lvalue
+            id = extEntity.id.lvalue,
+            isNew = true
         )
         return repo.save(guild)
     }
