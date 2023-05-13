@@ -26,7 +26,7 @@ class DailyStatController @Autowired constructor(
     @GetMapping("/daily-stat")
     @ResponseBody
     fun getDailyStat(
-        @RequestParam channelId: ULong,
+        @RequestParam channelId: Long,
         @RequestParam(required = false)
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         date: LocalDate?,

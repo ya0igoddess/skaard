@@ -30,7 +30,7 @@ class DailyStatSummaryController @Autowired constructor(
     @GetMapping("/daily-stat/summary")
     @ResponseBody
     fun getDailyStatSummary(
-        @RequestParam guildId: ULong,
+        @RequestParam guildId: Long,
         @RequestParam(required = false)
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         date: LocalDate?,
