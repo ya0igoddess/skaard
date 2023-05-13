@@ -10,7 +10,7 @@ import su.skaard.core.repositories.discord.DiscordUserRepository
 class OAuth2DiscordUserService(private val userRepository: DiscordUserRepository) : DefaultOAuth2UserService() {
     override fun loadUser(userRequest: OAuth2UserRequest?): OAuth2User {
         val user = super.loadUser(userRequest)
-        val id = user.getAttribute<String>("id")?.toULong()
+        val id = user.getAttribute<String>("id")?.toLong()
         requireNotNull(id)
         val discordUser =
            runBlocking { userRepository.findById(id) ?: throw UsernameNotFoundException("User with id $id is not found") }
