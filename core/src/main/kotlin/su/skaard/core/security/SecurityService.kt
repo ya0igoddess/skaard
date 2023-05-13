@@ -12,7 +12,7 @@ class SecurityService(
     val guildMemberRepository: GuildMemberRepository
 ) {
     suspend fun isUserMemberOfGuild(user: DiscordUser, guild: Guild): Boolean {
-        return guildMemberRepository.getByGuildAndDiscordUser(guild, user) != null
+        return guildMemberRepository.getByGuildIdAndDiscordUserId(guild.id.toLong(), user.id.toLong()) != null
     }
 
     suspend fun isUserMemberOfChannel(user: DiscordUser, channel: Channel): Boolean {

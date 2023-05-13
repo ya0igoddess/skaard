@@ -6,8 +6,4 @@ import su.skaard.core.entities.discord.DiscordUser
 import java.util.*
 
 @Repository
-interface DiscordUserRepository : CoroutineCrudRepository<DiscordUser, ULong> {
-    override suspend fun findById(id: ULong): DiscordUser?
-
-    override suspend fun <S : DiscordUser> save(entity: S): S
-}
+interface DiscordUserRepository : CoroutineCrudRepository<DiscordUser, Long>

@@ -7,10 +7,8 @@ import su.skaard.core.entities.discord.Guild
 import su.skaard.core.entities.discord.GuildMember
 
 @Repository
-interface GuildMemberRepository : CoroutineCrudRepository<GuildMember, ULong> {
-    override suspend fun findById(id: ULong): GuildMember?
-    suspend fun getByGuildAndDiscordUser(guild: Guild, discordUser: DiscordUser): GuildMember?
+interface GuildMemberRepository : CoroutineCrudRepository<GuildMember, Long> {
 
-    suspend fun getByGuildIdAndDiscordUserId(guild: Long, discordUserId: Long): GuildMember?
-    override suspend fun <S : GuildMember> save(entity: S): S
+    suspend fun getByGuildIdAndDiscordUserId(guildId: Long, discordUserId: Long): GuildMember? { throw NotImplementedError() }
+
 }
