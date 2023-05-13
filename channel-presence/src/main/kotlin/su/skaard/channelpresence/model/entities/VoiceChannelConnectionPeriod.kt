@@ -16,7 +16,7 @@ import su.skaard.core.entities.discord.GuildMember
 class VoiceChannelConnectionPeriod(
     @Id
     @GeneratedValue
-    val id: ULong,
+    val id: Long,
 
     @JoinColumn(name = "channel_id")
     @ManyToOne

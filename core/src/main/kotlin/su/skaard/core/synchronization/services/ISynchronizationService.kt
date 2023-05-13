@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional
 import su.skaard.core.entities.discord.DiscordUser
 
 interface ISynchronizationService {
-    @Transactional
     fun synchronizeData(kord: Kord)
     suspend fun handleVoiceChannelCreateEvent(voiceChannelCreateEvent: VoiceChannelCreateEvent)
     suspend fun handleMemberJoinEvent(memberJoinEvent: MemberJoinEvent)

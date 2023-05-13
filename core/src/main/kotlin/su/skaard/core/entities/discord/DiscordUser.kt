@@ -6,6 +6,6 @@ import org.springframework.data.relational.core.mapping.Table
 @Table(name = "skaard_discord_user")
 class DiscordUser(
     @Id
-    var id: ULong,
+    var id: Long,
     var name: String,
 )

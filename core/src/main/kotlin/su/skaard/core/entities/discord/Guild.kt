@@ -6,5 +6,5 @@ import org.springframework.data.relational.core.mapping.Table
 @Table(name = "skaard_discord_guild")
 class Guild(
     @Id
-    val id: ULong,
+    val id: Long,
 )

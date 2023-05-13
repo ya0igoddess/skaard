@@ -4,17 +4,18 @@ import org.springframework.stereotype.Service
 import su.skaard.core.entities.discord.Channel
 import su.skaard.core.entities.discord.Guild
 import su.skaard.core.repositories.discord.ChannelRepository
+import su.skaard.core.utils.lvalue
 
 @Service
 class DiscordChannelService(
     private val repo: ChannelRepository,
     private val guildRepo: ISnowflakeRepoService<Guild>
 ) : IDiscordChannelService {
-    override suspend fun getById(id: ULong): Channel? {
-        return repo.searchById(id)
+    override suspend fun getById(id: Long): Channel? {
+        return repo.findById(id)
     }
 
-    override suspend fun deleteById(id: ULong) {
+    override suspend fun deleteById(id: Long) {
         repo.deleteById(id)
     }
 
@@ -27,10 +28,10 @@ class DiscordChannelService(
     }
 
     override suspend fun createFromExternal(extEntity: dev.kord.core.entity.channel.Channel): Channel {
-        val guild = guildRepo.getBySnowflake(requireNotNull(extEntity.data.guildId.value))
+        val guild = requireNotNull(guildRepo.getBySnowflake(requireNotNull(extEntity.data.guildId.value)))
         val channel = Channel(
-            id = extEntity.id.value,
-            guild = requireNotNull(guild)
+            id = extEntity.id.lvalue,
+            guildId = guild.id
         )
         return repo.save(channel)
     }

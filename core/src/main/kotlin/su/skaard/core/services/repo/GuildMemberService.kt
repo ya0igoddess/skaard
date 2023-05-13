@@ -17,14 +17,14 @@ class GuildMemberService(
     private val userSync: ISyncRepoService<DiscordUser, User>
 ) : IGuildMemberService {
     override suspend fun getByGuildAndUser(guild: Guild, user: DiscordUser): GuildMember? {
-        return repo.getByGuildAndDiscordUser(guild, user)
+        return repo.getByGuildIdAndDiscordUserId(guild.id, user.id)
     }
 
-    override suspend fun getById(id: ULong): GuildMember? {
+    override suspend fun getById(id: Long): GuildMember? {
         return repo.findById(id)
     }
 
-    override suspend fun deleteById(id: ULong) {
+    override suspend fun deleteById(id: Long) {
         repo.deleteById(id)
     }
 
@@ -33,17 +33,17 @@ class GuildMemberService(
     }
 
     override suspend fun getByExternal(extEntity: Member): GuildMember? {
-        val guildId = extEntity.guildId.value
-        val userId = extEntity.memberData.userId.value
-        return repo.getByGuildIdAndDiscordUserId(guildId.toLong(), userId.toLong())
+        val guildId = extEntity.guildId.value.toLong()
+        val userId = extEntity.memberData.userId.value.toLong()
+        return repo.getByGuildIdAndDiscordUserId(guildId, userId)
     }
 
     override suspend fun createFromExternal(extEntity: Member): GuildMember {
         val guild = runBlocking { guildSync.findOrCreateFromExt(extEntity.getGuild()) }
         val user = runBlocking { userSync.findOrCreateFromExt(extEntity.asUser()) }
         val member = GuildMember(
-            discordUser = user,
-            guild = guild
+            discordUserId = user.id,
+            guildId = guild.id
         )
         return repo.save(member)
     }
