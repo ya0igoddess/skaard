@@ -16,6 +16,6 @@ interface ISynchronizationService {
     suspend fun handleMemberJoinEvent(memberJoinEvent: MemberJoinEvent)
     suspend fun syncGuild(discordGuild: Guild)
     suspend fun syncChannel(discordChannel: GuildChannel)
-    suspend fun syncUser(discordUser: User): DiscordUser
-    suspend fun syncGuildMember(discordMember: Member, guild: su.skaard.core.entities.discord.Guild)
+    suspend fun syncUser(discordUser: User)
+    suspend fun syncGuildMember(discordMember: Member)
 }

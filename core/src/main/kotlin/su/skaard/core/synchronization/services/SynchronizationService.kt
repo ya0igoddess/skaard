@@ -20,6 +20,7 @@ import su.skaard.core.repositories.discord.ChannelRepository
 import su.skaard.core.repositories.discord.DiscordUserRepository
 import su.skaard.core.repositories.discord.GuildMemberRepository
 import su.skaard.core.repositories.discord.GuildsRepository
+import su.skaard.core.services.repo.IGuildMemberService
 import su.skaard.core.utils.IntegrationPersistenceException
 import su.skaard.core.utils.getLogger
 import su.skaard.core.utils.lvalue
@@ -29,12 +30,10 @@ import su.skaard.core.utils.lvalue
  */
 @Component
 class SynchronizationService(
-    private val channelRepository: ChannelRepository,
-    private val discordUserRepository: DiscordUserRepository,
-    private val guildMemberRepository: GuildMemberRepository,
-    private val guildsRepository: GuildsRepository,
     private val guildSyncService: IDiscordSyncRepoService<su.skaard.core.entities.discord.Guild, Guild>,
     private val channelSyncService: IDiscordSyncRepoService<Channel, dev.kord.core.entity.channel.Channel>,
+    private val memberSyncService: ISyncRepoService<GuildMember, Member>,
+    private val userSyncService: ISyncRepoService<DiscordUser, User>
 ) : ISynchronizationService {
     private val logger = getLogger(SynchronizationService::class.java)
 
@@ -46,55 +45,29 @@ class SynchronizationService(
 
     override suspend fun handleVoiceChannelCreateEvent(voiceChannelCreateEvent: VoiceChannelCreateEvent) {
         logger.debug("Handling channel creation {}", voiceChannelCreateEvent)
-        val discordChannel = voiceChannelCreateEvent.channel
-        val discordGuild = discordChannel.guild
-        val guild =
-            guildsRepository.findById(discordGuild.id.lvalue) ?: throw IntegrationPersistenceException()
-        val channel = Channel(discordChannel.id.lvalue, 0L)
-        channelRepository.save(channel)
+        channelSyncService.createFromExternal(voiceChannelCreateEvent.channel)
     }
 
     override suspend fun handleMemberJoinEvent(memberJoinEvent: MemberJoinEvent) {
         logger.debug("Handling member joining {}", memberJoinEvent)
-        val discordUser = runBlocking { memberJoinEvent.member.asUser() }
-        val user = syncUser(discordUser)
-        val guild = guildsRepository.findById(memberJoinEvent.guild.id.lvalue)
-            ?: throw IntegrationPersistenceException()
-        val member = GuildMember(
-            id = user.id,
-            discordUserId = user.id,
-            guildId = guild.id
-        )
-        guildMemberRepository.save(member)
+        memberSyncService.createFromExternal(memberJoinEvent.member)
     }
 
     override suspend fun syncGuild(discordGuild: Guild) {
         guildSyncService.findOrCreateFromExt(discordGuild)
         discordGuild.channels.collect(::syncChannel)
-        //runBlocking { discordGuild.members.toList() }.forEach { syncGuildMember(it, guild) }
+        discordGuild.members.collect(::syncGuildMember)
     }
 
     override suspend fun syncChannel(discordChannel: GuildChannel) {
          channelSyncService.findOrCreateFromExt(discordChannel)
     }
 
-    override suspend fun syncUser(discordUser: User): DiscordUser {
-        val user = discordUserRepository.findById(discordUser.id.lvalue)
-            ?: DiscordUser(
-                id = discordUser.id.lvalue,
-                name = discordUser.username
-            )
-        return discordUserRepository.save(user)
+    override suspend fun syncUser(discordUser: User) {
+        userSyncService.findOrCreateFromExt(discordUser)
     }
 
-    override suspend fun syncGuildMember(discordMember: Member, guild: su.skaard.core.entities.discord.Guild) {
-        val user = syncUser(runBlocking { discordMember.asUser() })
-        val member = guildMemberRepository.getByGuildIdAndDiscordUserId(guild.id, user.id)
-            ?: GuildMember(
-                id = discordMember.id.lvalue,
-                discordUserId = user.id,
-                guildId = guild.id
-            )
-        guildMemberRepository.save(member)
+    override suspend fun syncGuildMember(discordMember: Member) {
+        memberSyncService.findOrCreateFromExt(discordMember)
     }
 }
