@@ -7,7 +7,7 @@ import org.springframework.data.domain.Persistable
 import org.springframework.data.relational.core.mapping.Table
 
 @Table(name = "skaard_discord_guild")
-class Guild(
+class DiscordGuild(
     @Id
     val id: Long,
     @Transient @Value("false") private val isNew: Boolean = false,

@@ -5,7 +5,7 @@ import dev.kord.core.entity.User
 import kotlinx.coroutines.runBlocking
 import org.springframework.stereotype.Service
 import su.skaard.core.entities.discord.DiscordUser
-import su.skaard.core.entities.discord.Guild
+import su.skaard.core.entities.discord.DiscordGuild
 import su.skaard.core.entities.discord.GuildMember
 import su.skaard.core.repositories.discord.GuildMemberRepository
 import su.skaard.core.synchronization.services.ISyncRepoService
@@ -13,10 +13,10 @@ import su.skaard.core.synchronization.services.ISyncRepoService
 @Service
 class GuildMemberService(
     private val repo: GuildMemberRepository,
-    private val guildSync: ISyncRepoService<Guild, dev.kord.core.entity.Guild>,
+    private val guildSync: ISyncRepoService<DiscordGuild, dev.kord.core.entity.Guild>,
     private val userSync: ISyncRepoService<DiscordUser, User>
 ) : IGuildMemberService {
-    override suspend fun getByGuildAndUser(guild: Guild, user: DiscordUser): GuildMember? {
+    override suspend fun getByGuildAndUser(guild: DiscordGuild, user: DiscordUser): GuildMember? {
         return repo.getByGuildIdAndDiscordUserId(guild.id, user.id)
     }
 
