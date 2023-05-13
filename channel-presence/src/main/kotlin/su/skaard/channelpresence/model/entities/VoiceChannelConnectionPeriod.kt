@@ -1,34 +1,15 @@
 package su.skaard.channelpresence.model.entities
 
 import java.time.LocalDateTime
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
-import jakarta.persistence.Table
-import su.skaard.core.entities.discord.Channel
-import su.skaard.core.entities.discord.GuildMember
+import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Table
 
-@Entity(name = "VoiceChannelConnectionPeriod")
 @Table(name = "skaard_discord_voice_connection_period")
 class VoiceChannelConnectionPeriod(
     @Id
-    @GeneratedValue
-    val id: Long,
-
-    @JoinColumn(name = "channel_id")
-    @ManyToOne
-    val channel: Channel,
-
-    @JoinColumn(name = "member_id")
-    @ManyToOne
-    val member: GuildMember,
-
-    @Column(name = "begin_time")
+    val id: Long = 0L,
+    val channelId: Long,
+    val memberId: Long,
     val connectionStart: LocalDateTime,
-
-    @Column(name = "end_time")
     val connectionEnd: LocalDateTime
 )

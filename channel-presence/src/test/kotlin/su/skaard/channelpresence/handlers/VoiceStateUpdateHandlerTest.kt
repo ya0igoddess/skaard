@@ -2,10 +2,7 @@ package su.skaard.channelpresence.handlers
 
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.event.user.VoiceStateUpdateEvent
-import io.mockk.confirmVerified
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import su.skaard.channelpresence.services.ConnectionPeriodRegistryService
@@ -21,7 +18,7 @@ internal class VoiceStateUpdateHandlerTest {
         every { event.old?.channelId } returns Snowflake("123")
         every { event.state.channelId } returns Snowflake("321")
         handler.handle(event)
-        verify {
+        coVerify {
             connectionPeriodRegistryService.closeConnection(any())
             connectionPeriodRegistryService.openConnection(any(), any(), any())
         }

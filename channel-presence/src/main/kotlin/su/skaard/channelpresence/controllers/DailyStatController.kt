@@ -1,5 +1,6 @@
 package su.skaard.channelpresence.controllers
 
+import kotlinx.coroutines.runBlocking
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.stereotype.Controller
@@ -32,14 +33,18 @@ class DailyStatController @Autowired constructor(
         date: LocalDate?,
         principal: Principal
     ): String {
-        val localDate = date ?: LocalDate.now()
-        val channel =
-            channelRepository.searchById(channelId.toLong()) ?: throw IllegalArgumentException("NonExistingChannel")
-        val user: DiscordUser = principal.asDiscordUser() ?: throw IllegalStateException("Principal doesn't get")
-        if (!securityService.isUserMemberOfChannel(user, channel)) {
-            throw AccessDeniedException("The current user doesn't have rights to this channel")
-        }
-        val stat = connectionPeriodService.getChannelConnectionStat(channel, localDate)
-        return createCustomHTML(block = createActivityStat(stat, localDate))
+//        return runBlocking {
+//            val localDate = date ?: LocalDate.now()
+//            val channel =
+//                channelRepository.findById(channelId) ?: throw IllegalArgumentException("NonExistingChannel")
+//            val user: DiscordUser = principal.asDiscordUser() ?: throw IllegalStateException("Principal doesn't get")
+//            if (!securityService.isUserMemberOfChannel(user, channel)) {
+//                throw AccessDeniedException("The current user doesn't have rights to this channel")
+//            }
+//            val stat = connectionPeriodService.getChannelConnectionStat(channel, localDate)
+//            return@runBlocking createCustomHTML(block = createActivityStat(stat, localDate))
+//        }
+        return ""
     }
+
 }

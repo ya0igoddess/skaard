@@ -23,6 +23,6 @@ pluginManagement {
 }
 
 include("core")
-//include("channel-presence")
+include("channel-presence")
 
 if (System.getenv().containsKey("SKAARD_DEVELOP")) include("app")
